@@ -1,0 +1,8 @@
+.aksi-container {
+    display: flex;
+    flex-direction: row;     
+    align-items: center;     
+    flex-wrap: nowrap;       
+    gap: 8px;                
+    white-space: nowrap;     
+}

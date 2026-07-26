@@ -1,0 +1,222 @@
+/* ==========================================
+   1. SIDEBAR STYLE
+   ========================================== */
+.sidebar {
+    width: 260px;
+    height: 100%;
+    background-color: #f3a45a; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+
+.menu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 15px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 16px;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.active {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.sidebar-icon {
+    font-size: 20px;
+    width: 24px;
+}
+
+.sidebar-footer {
+    padding: 0 15px;
+}
+
+.profile-item {
+    color: #ffffff !important;
+}
+
+.profile-circle {
+    width: 42px;
+    height: 42px;
+    border: 1.5px solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-icon-profile {
+    font-size: 18px;
+}
+
+/* ==========================================
+   2. GRID
+   ========================================== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    width: 100%;
+}
+
+.data-card {
+    background: #ffffff;
+    border: 1px solid #e8e8e8; 
+    border-radius: 20px;
+    padding: 35px 30px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.icon-wrapper {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.card-icon {
+    font-size: 34px;
+}
+
+.icon-wrapper.green { background-color: #e6f6ec; color: #2ecc71; }
+.icon-wrapper.blue { background-color: #ebf3fc; color: #3498db; }
+.icon-wrapper.purple { background-color: #f5ebfa; color: #9b59b6; }
+.icon-wrapper.orange { background-color: #fef4eb; color: #e67e22; }
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info h3 {
+    font-size: 16px;
+    color: #555555;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.card-info h2 {
+    font-size: 32px;
+    color: #000000;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.card-info p {
+    font-size: 15px;
+    color: #999999;
+    font-weight: 500;
+}
+
+/* ==========================================
+   3. ANIMASI SPINNER & LOADING
+   ========================================== */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #f3a45a;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+/* ==========================================
+   4. HALAMAN STATUS HASIL GENERATE
+   ========================================== */
+.hasil-generate-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 60px 40px;
+    margin-top: 25px;
+    text-align: center;
+    background-color: #fff;
+}
+
+/* Status Sukses */
+.icon-success-wrapper {
+    font-size: 80px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.status-title-success {
+    color: #28a745;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.status-subtitle {
+    color: #6c757d;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.download-options-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap; 
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+/* Status Gagal */
+.error-status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.icon-error-wrapper {
+    font-size: 80px;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+.status-title-error {
+    color: #dc3545;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.footer-action-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
+.ml-2 { margin-left: 10px; }

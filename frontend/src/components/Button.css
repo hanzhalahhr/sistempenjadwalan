@@ -1,0 +1,50 @@
+.btn-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 44px;
+    min-width: 160px;
+    padding: 0 20px;
+}
+
+.btn-text-spacing { margin-left: 10px; }
+
+.btn-primary { background-color: #f3a45a; color: white; }
+.btn-primary:hover { background-color: #e09348; }
+
+.btn-secondary { background: white; border: 1px solid #e2e8f0; color: #64748b; }
+.btn-secondary:hover { background: #f1f5f9; }
+
+.btn-danger { background: #fff1f2; color: #e11d48; border: 1px solid #e11d48; }
+
+.btn-table-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-width: auto;
+}
+
+.btn-table-icon.eye { color: #64748b; }
+.btn-table-icon.eye:hover { background-color: #f1f5f9; color: #334155; }
+
+.btn-table-icon.download { color: #10b981; }
+.btn-table-icon.download:hover { background-color: #ecfdf5; }
+
+.btn-table-icon.edit { color: #f3a45a; }
+.btn-table-icon.edit:hover { background-color: #fef4eb; }
+
+.btn-table-icon.delete { color: #ef4444; }
+.btn-table-icon.delete:hover { background-color: #fef2f2; }

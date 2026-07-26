@@ -1,0 +1,70 @@
+.profile-header { 
+    margin-bottom: 24px; 
+}
+
+.profile-title { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: #000; 
+    text-align: left;
+}
+
+.profile-subtitle { 
+    color: #64748b; 
+    margin-top: 4px; 
+    text-align: left;
+}
+
+.password-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.lock-icon { 
+    font-size: 2rem; 
+    margin-bottom: 16px; 
+    text-align: center; 
+    display: flex;
+    justify-content: center;
+}
+
+.password-card h3 { 
+    margin-bottom: 8px; 
+    color: #1e293b; 
+    text-align: center; 
+}
+
+.password-card p { 
+    color: #64748b; 
+    font-size: 0.85rem; 
+    margin-bottom: 24px; 
+    text-align: center; 
+}
+
+.profile-input-wrapper {
+    margin-bottom: 16px;
+}
+
+.profile-input-wrapper .profile-eye-icon { 
+    position: absolute; 
+    right: 12px; 
+    bottom: 12px;
+    color: #94a3b8; 
+    cursor: pointer; 
+    z-index: 5;
+}
+
+.action-buttons { 
+    display: flex; 
+    gap: 12px; 
+    margin-top: 30px;
+    width: 100%;
+}
+
+.action-buttons > button {
+    flex: 1;
+}

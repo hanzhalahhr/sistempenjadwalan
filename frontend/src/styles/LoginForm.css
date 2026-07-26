@@ -1,0 +1,54 @@
+.right {
+    width: 420px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(1px);
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.top-image {
+    width: 100%;
+    height: 190px;
+}
+
+.top-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-box {
+    padding: 25px 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box h2 {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.login-input-field {
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    color: #f5a254;
+    text-align: right;
+    margin-top: -5px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

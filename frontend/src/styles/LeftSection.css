@@ -1,0 +1,12 @@
+.left {
+    width: 50%;
+    padding-left: 20px;
+}
+
+.left h1 {
+    color: white;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,30 @@
+.modal-overlay-custom {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content-custom {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 400px;
+}
+
+.modal-text-custom {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.modal-actions-custom {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

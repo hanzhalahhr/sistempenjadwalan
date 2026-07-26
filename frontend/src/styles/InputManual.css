@@ -1,0 +1,134 @@
+.tabs-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px; 
+    padding: 10px 0; 
+    border: 1px solid #f3a45a;
+    background: transparent;
+    border-radius: 10px;
+    color: #f3a45a;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px; 
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #f3a45a;
+    color: white;
+}
+
+/* Dynamic Table Container */
+.dynamic-table-wrapper {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background-color: white;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.dynamic-table-header {
+    display: grid;
+    padding: 16px 20px 8px 20px;
+    gap: 15px;
+    color: #334155;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+
+.dynamic-table-row {
+    display: grid;
+    padding: 8px 20px;
+    gap: 15px;
+    align-items: center;
+    border-bottom: 1px solid #f8fafc;
+}
+
+.dynamic-table-row:last-child {
+    border-bottom: none;
+}
+
+/* Mode Edit Input */
+.dynamic-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #94a3b8;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1e293b;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: transparent;
+}
+
+.dynamic-input:focus {
+    border-color: #f3a45a;
+}
+
+select.dynamic-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    cursor: pointer;
+    padding: 10px 14px;
+}
+
+.dynamic-text {
+    padding: 10px 0;
+    font-size: 14px;
+    color: #334155;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+/* Action Icons */
+.action-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon-action {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon-action.edit { color: #f3a45a; }
+.btn-icon-action.edit:hover { background-color: #fef4eb; }
+
+.btn-icon-action.delete { color: #ef4444; }
+.btn-icon-action.delete:hover { background-color: #fef2f2; }
+
+.btn-icon-action.save { color: #10b981; }
+.btn-icon-action.save:hover { background-color: #ecfdf5; }
+
+.btn-icon-action.cancel { color: #ef4444; }
+.btn-icon-action.cancel:hover { background-color: #fef2f2; }
+
+/* Footer Tambah Baris */
+.dynamic-table-footer {
+    background-color: #fff6ed; 
+    padding: 16px 20px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #f1f5f9;
+}

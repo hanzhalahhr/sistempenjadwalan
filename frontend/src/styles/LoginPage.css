@@ -1,0 +1,34 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../assets/GedungUPN.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    width: 85%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}

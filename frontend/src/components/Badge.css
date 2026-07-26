@@ -1,0 +1,16 @@
+.badge-base {
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+.badge-status.gagal { background-color: #ffe4e4; color: #e11d48; }
+.badge-status.berhasil { background-color: #dcfce7; color: #15803d; }
