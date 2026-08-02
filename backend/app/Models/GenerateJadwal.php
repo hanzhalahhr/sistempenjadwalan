@@ -11,8 +11,24 @@ class GenerateJadwal extends Model
     protected $fillable = [
         'semester_akademik_id',
         'generate_ke',
+        'kode_generate',
         'tanggal_generate',
         'status',
-        'created_by'
     ];
+
+    public function jadwal()
+    {
+        return $this->hasMany(
+            Jadwal::class,
+            'generate_jadwal_id'
+        );
+    }
+
+    public function semesterAkademik()
+    {
+        return $this->belongsTo(
+            SemesterAkademik::class,
+            'semester_akademik_id'
+        );
+    }
 }

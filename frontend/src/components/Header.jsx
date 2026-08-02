@@ -13,12 +13,6 @@ const Header = () => {
           <div className="title-univ">Universitas Pembangunan Nasional Veteran Jakarta</div>
         </div>
       </div>
-      <div className="header-right">
-        <select className="semester-select">
-          <option>Semester Ganjil 2025/2026</option>
-          <option>Semester Genap 2025/2026</option>
-        </select>
-      </div>
     </header>
   );
 };

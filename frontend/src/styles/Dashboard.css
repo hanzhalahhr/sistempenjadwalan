@@ -154,6 +154,7 @@
 /* ==========================================
    4. HALAMAN STATUS HASIL GENERATE
    ========================================== */
+
 .hasil-generate-card {
     border: 1px solid #e0e0e0;
     border-radius: 15px;
@@ -220,3 +221,875 @@
 }
 
 .ml-2 { margin-left: 10px; }
+
+
+/* =====================================
+   KONFIGURASI JADWAL
+===================================== */
+
+.config-card {
+  background:#ffffff;
+  padding:28px;
+  border-radius:18px;
+  margin-bottom:25px;
+  border:1px solid #e5eaf2;
+  box-shadow:0 8px 25px rgba(37,99,235,0.08);
+}
+
+.config-card h3 {
+  font-size:18px;
+  font-weight:700;
+  color:#1e293b;
+  margin-bottom:65px;
+}
+
+
+/* ================================
+   FORM PERIODE AKADEMIK
+================================ */
+
+.form-row {
+  display:flex;
+  gap:35px;
+  align-items:flex-end;
+}
+
+.form-row div {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.form-row label {
+  font-size:14px;
+  font-weight:600;
+  color:#475569;
+}
+
+.form-row select {
+  width:260px;
+  height:45px;
+  padding:0 15px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+  background:#f8fafc;
+  color:#334155;
+  font-size:14px;
+}
+
+
+/* ================================
+   HARI KULIAH
+================================ */
+
+.hari-container {
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.hari-item {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:12px 18px;
+  background:#f1f5ff;
+  border:1px solid #dbeafe;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
+  color:#334155;
+}
+
+.hari-item input {
+  width:18px;
+  height:18px;
+  accent-color:#2563eb;
+}
+
+
+/* ================================
+   TABEL SLOT JAM
+================================ */
+
+.config-table {
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  table-layout:fixed;
+}
+
+.config-table thead {
+  background:#eff6ff;
+}
+
+.config-table th {
+  height:50px;
+  padding:0 15px;
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  color:#334155;
+  border-bottom:2px solid #dbeafe;
+}
+
+.config-table td {
+  height:65px;
+  padding:0 15px;
+  text-align:center;
+  vertical-align:middle;
+  font-size:14px;
+  color:#475569;
+  border-bottom:1px solid #e5e7eb;
+}
+
+
+/* ukuran kolom */
+
+.config-table th:nth-child(1),
+.config-table td:nth-child(1){
+  width:80px;
+}
+
+
+.config-table th:nth-child(2),
+.config-table td:nth-child(2){
+  width:200px;
+}
+
+
+.config-table th:nth-child(3),
+.config-table td:nth-child(3){
+  width:200px;
+}
+
+
+.config-table th:nth-child(4),
+.config-table td:nth-child(4){
+  width:120px;
+}
+
+
+/* ================================
+   INPUT JAM
+================================ */
+
+.time-input {
+  width:120px;
+  height:38px;
+  border-radius:8px;
+  border:1px solid #cbd5e1;
+  background:#f8fafc;
+  color:#334155;
+  text-align:center;
+  font-size:14px;
+}
+
+
+/* ================================
+   AKSI
+================================ */
+
+.action-column {
+  text-align:center;
+  vertical-align:middle;
+  padding:0 !important;
+}
+
+.action-buttons {
+  display:flex !important;
+  flex-direction:row !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:8px !important;
+  margin:0 !important;
+  padding:0 !important;
+  height:34px !important;
+}
+
+.edit-btn,
+.delete-btn {
+  width:34px;
+  height:34px;
+  padding:0;
+  border:none;
+  border-radius:8px;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  cursor:pointer;
+}
+
+
+/* tombol edit */
+
+.edit-btn {
+  background:#eff6ff;
+  color:#2563eb;
+}
+
+.edit-btn:hover {
+  background:#dbeafe;
+}
+
+
+/* tombol hapus */
+
+.delete-btn {
+  background:#fff1f2;
+  color:#e11d48;
+}
+
+.delete-btn:hover {
+  background:#ffe4e6;
+}
+
+
+/* ================================
+   HEADER SLOT
+================================ */
+
+.card-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media(max-width:768px){
+  .form-row{
+    flex-direction:column;
+  }
+
+  .config-table{
+    overflow-x:auto;
+  }
+
+}
+
+/* ================================
+   STATUS GENERATE
+================================ */
+
+.status-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.status-table td{
+  padding:14px 10px;
+  border-bottom:1px solid #e5e7eb;
+  font-size:14px;
+}
+
+.status-table td:nth-child(1){
+  width:220px;
+  font-weight:600;
+}
+
+.status-table td:nth-child(2){
+  width:20px;
+  text-align:center;
+}
+
+.status-table td:nth-child(3){
+  color:#475569;
+  font-weight:400;
+}
+
+.status-label{
+  font-weight:700;
+  color:#000;
+}
+
+.status-table td.status-success{
+  color:#22c55e;
+  font-weight:700;
+}
+
+/* ================================
+   POPUP BERHASIL
+================================ */
+
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.popup-card{
+  width:420px;
+  background:#fff;
+  border-radius:18px;
+  padding:35px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.popup-icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 20px;
+  border-radius:50%;
+  background:#dcfce7;
+  color:#22c55e;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:34px;
+  font-weight:700;
+}
+
+.popup-card h2{
+  font-size:24px;
+  margin-bottom:12px;
+  color:#111827;
+}
+
+.popup-card p{
+  font-size:15px;
+  color:#6b7280;
+  line-height:24px;
+  margin-bottom:28px;
+}
+
+.popup-button-group{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+.generate-summary {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:25px;
+  margin:30px 0;
+}
+
+
+/* ================================
+   HASIL GENERATE PAGE
+================================ */
+
+
+/* CARD UTAMA */
+
+.hasil-generate-card {
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    padding:30px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+
+
+/* ================================
+   HEADER SUCCESS
+================================ */
+
+
+.success-status-container {
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+
+.icon-success-wrapper {
+
+    color:#16a34a;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.status-title-success {
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    margin:0 0 8px;
+
+}
+
+
+
+.status-subtitle {
+
+    font-size:14px;
+
+    color:#6b7280;
+
+    margin:0;
+
+}
+
+
+
+/* ================================
+   SUMMARY CARD
+================================ */
+
+
+.generate-summary {
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+    margin:30px 0;
+
+}
+
+
+
+.summary-card {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#f9fafb;
+
+    border:1px solid #e5e7eb;
+
+}
+
+
+
+.summary-icon {
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+
+
+.summary-icon.success {
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+}
+
+
+
+.summary-content {
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.summary-content span {
+
+    font-size:13px;
+
+    color:#6b7280;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.summary-content h3 {
+
+    margin:0;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+
+
+/* ================================
+   GENERATE CODE
+================================ */
+
+
+.generate-code h3 {
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+
+
+/* ================================
+   STATUS
+================================ */
+
+
+.status-result {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:6px 16px;
+
+    border-radius:20px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+
+
+.status-result.success {
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+
+
+.status-result.failed {
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+
+
+/* ================================
+   EXPORT BUTTON
+================================ */
+
+
+.hasil-action-button {
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+/* ================================
+   TABLE PREVIEW
+================================ */
+
+
+.table-preview-jadwal {
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    table-layout:fixed;
+
+    margin-top:20px;
+
+}
+
+
+
+/* HEADER */
+
+.table-preview-jadwal th {
+
+    background:#f3f4f6;
+
+    padding:12px;
+
+    text-align:center;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+
+
+/* DATA */
+
+.table-preview-jadwal td {
+
+    padding:12px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    font-size:14px;
+
+    color:#374151;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+}
+
+
+
+.table-preview-jadwal tr:hover {
+
+    background:#f9fafb;
+
+}
+
+
+
+/* ================================
+   UKURAN KOLOM TABEL
+================================ */
+
+
+.table-preview-jadwal th:nth-child(1),
+.table-preview-jadwal td:nth-child(1){
+
+    width:50px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(2),
+.table-preview-jadwal td:nth-child(2){
+
+    width:90px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(3),
+.table-preview-jadwal td:nth-child(3){
+
+    width:130px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(4),
+.table-preview-jadwal td:nth-child(4){
+
+    width:220px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(5),
+.table-preview-jadwal td:nth-child(5){
+
+    width:80px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(6),
+.table-preview-jadwal td:nth-child(6){
+
+    width:120px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(7),
+.table-preview-jadwal td:nth-child(7){
+
+    width:100px;
+
+}
+
+
+.table-preview-jadwal th:nth-child(8),
+.table-preview-jadwal td:nth-child(8){
+
+    width:200px;
+
+}
+
+
+
+/* ================================
+   FOOTER BUTTON
+================================ */
+
+
+.footer-action-area {
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+
+@media(max-width:900px){
+
+
+    .generate-summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+}
+
+
+/* ===========================
+   HASIL GENERATE GAGAL
+=========================== */
+
+
+.error-status-container{
+
+    text-align:center;
+
+    padding:40px;
+
+}
+
+
+
+.icon-error-wrapper{
+
+    color:#dc2626;
+
+    margin-bottom:20px;
+
+} 
+
+
+
+.status-title-error{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#dc2626;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.failed-info-box{
+
+    margin:30px auto;
+
+    max-width:450px;
+
+    text-align:left;
+
+    background:#fef2f2;
+
+    border:1px solid #fecaca;
+
+    border-radius:12px;
+
+    padding:20px;
+
+}
+
+
+
+.failed-info-box h4{
+
+    margin-bottom:12px;
+
+    color:#991b1b;
+
+}
+
+
+
+.failed-info-box ul{
+
+    padding-left:20px;
+
+    color:#7f1d1d;
+
+    font-size:14px;
+
+    line-height:25px;
+
+}

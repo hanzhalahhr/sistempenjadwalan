@@ -52,6 +52,7 @@
     border-bottom: 1px solid #f8fafc;
 }
 
+
 .dynamic-table-row:last-child {
     border-bottom: none;
 }
@@ -132,3 +133,98 @@ select.dynamic-input {
     justify-content: flex-end;
     border-top: 1px solid #f1f5f9;
 }
+
+.generate-modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.generate-modal{
+    width:420px;
+    background:white;
+    border-radius:16px;
+    padding:28px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.generate-modal h3{
+    margin-bottom:12px;
+    color:#1e293b;
+}
+
+.generate-modal p{
+    color:#64748b;
+    font-size:14px;
+    line-height:22px;
+    margin-bottom:24px;
+}
+
+.generate-modal-action{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+}
+
+.loading-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,.8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:10000;
+}
+
+.loading-box{
+    width:320px;
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.loading-box h3{
+    margin-top:18px;
+    color:#1e293b;
+}
+
+.loading-box p{
+    margin-top:8px;
+    color:#64748b;
+    font-size:14px;
+}
+
+.loading-spinner{
+    width:55px;
+    height:55px;
+    margin:auto;
+    border:5px solid #e2e8f0;
+    border-top:5px solid #f3a45a;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* ================================
+   SPINNER BUTTON
+================================ */
+
+.spin-icon{
+  animation: spin 1s linear infinite;
+}
+

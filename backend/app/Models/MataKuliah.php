@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\MataKuliah;
-use App\Models\Prodi;
-use App\Models\KelasPerkuliahan;
 
 class MataKuliah extends Model
 {
@@ -15,18 +12,9 @@ class MataKuliah extends Model
         'kode_mk',
         'nama_mk',
         'semester',
-        'sks'
+        'sks',
+        'jenis'
     ];
-
-    public function dosen()
-    {
-        return $this->belongsToMany(
-            Dosen::class,
-            'dosen_mata_kuliah',
-            'mata_kuliah_id',
-            'dosen_id'
-        );
-    }
 
     public function kelasPerkuliahan()
     {
@@ -35,4 +23,4 @@ class MataKuliah extends Model
             'mata_kuliah_id'
         );
     }
-}   
+}

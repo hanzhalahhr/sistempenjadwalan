@@ -16,4 +16,42 @@ class Jadwal extends Model
         'jam_mulai',
         'jam_selesai'
     ];
+
+
+    public function generateJadwal()
+    {
+        return $this->belongsTo(
+            GenerateJadwal::class,
+            'generate_jadwal_id'
+        );
+    }
+
+
+    public function kelasPerkuliahan()
+    {
+        return $this->belongsTo(
+            KelasPerkuliahan::class,
+            'kelas_perkuliahan_id'
+        );
+    }
+
+
+    public function ruangan()
+    {
+        return $this->belongsTo(
+            Ruangan::class,
+            'ruangan_id'
+        );
+    }
+
+
+    public function dosen()
+    {
+        return $this->belongsToMany(
+            Dosen::class,
+            'jadwal_dosen',
+            'jadwal_id',
+            'dosen_id'
+        );
+    }
 }

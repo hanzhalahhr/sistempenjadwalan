@@ -2,12 +2,15 @@ import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import JadwalPage from "./pages/JadwalPage";
+import DetailJadwalPage from './pages/DetailJadwalPage';
 import GenerateJadwalPage from "./pages/GenerateJadwalPage";
 import ImportExcelPage from "./pages/ImportExcelPage";
 import ProsesGeneratePage from "./pages/ProsesGeneratePage"; 
 import HasilGeneratePageBerhasil from "./pages/HasilGeneratePageBerhasil";
 import HasilGeneratePageGagal from "./pages/HasilGeneratePageGagal";
 import InputManualPage from "./pages/InputManualPage";
+import KonfigurasiJadwalPage from "./pages/KonfigurasiJadwalPage";
+import KelasPerkuliahanPage from "./pages/KelasPerkuliahanPage";
 // import TambahDataMK from "./pages/TambahDataMK";
 // import InputManualDosen from "./pages/InputManualDosen";
 // import TambahDataDosen from "./pages/TambahDataDosen";
@@ -20,20 +23,29 @@ function App() {
   const [currentPage, setCurrentPage] = useState(
     localStorage.getItem("currentPage") || "login"
     );
-
+  
+  const [selectedProdi,setSelectedProdi] = useState(null);
   const isLoggedIn = !!localStorage.getItem("token");
   
-  const navigate = (page) => {
+  const navigate = (page, data = null) => {
 
-  // Jika belum login, hanya boleh ke halaman login
-  if (!localStorage.getItem("token") && page !== "login") {
-    page = "login";
-  }
+    console.log("NAVIGATE KE:", page);
 
-  localStorage.setItem("currentPage", page);
-  setCurrentPage(page);
+    if(page === "hasil-generate"){
+        console.log(
+            "GENERATE ID SAAT PINDAH:",
+            localStorage.getItem("generate_id")
+        );
+    }
 
-  };
+    localStorage.setItem("currentPage", page);
+
+    setCurrentPage(page);
+
+ };
+
+
+
 
   return (
     <>
@@ -50,8 +62,16 @@ function App() {
       {currentPage === "jadwal" && (
         <JadwalPage onNavigate={navigate} />
       )}
+      {currentPage === "detail-jadwal" && (
+        <DetailJadwalPage onNavigate={navigate}
+          prodiId={selectedProdi}
+        />
+      )}
       {currentPage === "generate" && (
         <GenerateJadwalPage onNavigate={navigate} />
+      )}
+      {currentPage === "konfigurasi-jadwal" && (
+        <KonfigurasiJadwalPage onNavigate={navigate} />
       )}
       {currentPage === "import-excel" && (
         <ImportExcelPage onNavigate={navigate} />
@@ -68,6 +88,12 @@ function App() {
       {currentPage === "input-manual" && (
         <InputManualPage onNavigate={navigate} />
       )}
+      {currentPage === "kelas-perkuliahan" && (
+        <KelasPerkuliahanPage onNavigate={navigate} />
+      )}
+      
+
+      
 
       {/* {currentPage === "input-manual" && <InputManualPage onNavigate={setCurrentPage} currentPage="input-manual" />}
       {/* {currentPage === "input-manual-dosen" && <InputManualDosen onNavigate={setCurrentPage} />}

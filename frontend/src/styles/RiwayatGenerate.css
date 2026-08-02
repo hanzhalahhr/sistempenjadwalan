@@ -6,3 +6,100 @@
     gap: 8px;                
     white-space: nowrap;     
 }
+
+.action-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background: #fee2e2;
+    color: #dc2626;
+
+    transition: 0.2s ease;
+}
+
+
+.delete-button:hover {
+    background: #fecaca;
+    transform: scale(1.05);
+}
+
+.view-button,
+.excel-button,
+.pdf-button,
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.view-button {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.view-button:hover {
+    background: #bfdbfe;
+    transform: scale(1.05);
+}
+
+.excel-button {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.excel-button:hover {
+    background: #bbf7d0;
+    transform: scale(1.05);
+}
+
+.pdf-button {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.pdf-button:hover {
+    background: #fed7aa;
+    transform: scale(1.05);
+}
+
+/* Meratakan isi tabel secara vertikal */
+td {
+    vertical-align: middle;
+}
+
+
+/* Kolom status */
+.status-cell {
+    vertical-align: middle;
+}
+
+.waktu-generate {
+    font-size: 14px;
+    color: #535c68;
+    margin-top: 3px;
+}   

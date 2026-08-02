@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SemesterAkademik extends Model
 {
+
     protected $table = 'semester_akademik';
 
     protected $fillable = [
@@ -13,4 +14,5 @@ class SemesterAkademik extends Model
         'periode',
         'is_active'
     ];
+
 }
