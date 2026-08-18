@@ -10,8 +10,13 @@ use App\Http\Controllers\SemesterAkademikController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\KelasPerkuliahanController;
+use App\Http\Controllers\SlotWaktuKuliahController;
+use App\Http\Controllers\KonfigurasiJadwalController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\GenerateJadwalController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,64 +24,105 @@ use App\Http\Controllers\GenerateJadwalController;
 |--------------------------------------------------------------------------
 */
 
+/*
+|--------------------------------------------------------------------------
+| LOGIN
+|--------------------------------------------------------------------------
+| Tidak membutuhkan token.
+*/
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-Route::post(
-    '/login',
-    [
-        AuthController::class,
-        'login'
-    ]
-);
-
+Route::post('/login', [AuthController::class, 'login']);
 
 
 /*
 |--------------------------------------------------------------------------
-| MASTER DATA
+| USER DARI TOKEN
 |--------------------------------------------------------------------------
+| Untuk testing token.
 */
 
+Route::middleware('auth:sanctum')->get(
+    '/user',
+    function (Request $request) {
+
+        return response()->json([
+            'user' => $request->user()
+        ]);
+
+    }
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC / MASTER DATA
+|--------------------------------------------------------------------------
+*/
 
 Route::apiResource(
     'prodi',
     ProdiController::class
 );
 
-
 Route::apiResource(
     'dosen',
     DosenController::class
 );
-
 
 Route::apiResource(
     'semester-akademik',
     SemesterAkademikController::class
 );
 
-
 Route::apiResource(
     'ruangan',
     RuanganController::class
 );
-
 
 Route::apiResource(
     'mata-kuliah',
     MataKuliahController::class
 );
 
-
 Route::apiResource(
     'kelasperkuliahan',
     KelasPerkuliahanController::class
 );
 
+
+/*
+|--------------------------------------------------------------------------
+| SLOT WAKTU KULIAH
+|--------------------------------------------------------------------------
+*/
+
+Route::apiResource(
+    'slot-waktu-kuliah',
+    SlotWaktuKuliahController::class
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| KONFIGURASI JADWAL
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/konfigurasi-jadwal/{id}',
+    [
+        KonfigurasiJadwalController::class,
+        'show'
+    ]
+);
+
+Route::post(
+    '/konfigurasi-jadwal',
+    [
+        KonfigurasiJadwalController::class,
+        'store'
+    ]
+);
 
 
 /*
@@ -85,9 +131,6 @@ Route::apiResource(
 |--------------------------------------------------------------------------
 */
 
-
-// HASIL DETAIL JADWAL
-// taruh sebelum apiResource supaya tidak bentrok
 Route::get(
     '/jadwal/hasil/{id}',
     [
@@ -95,7 +138,6 @@ Route::get(
         'hasil'
     ]
 );
-
 
 Route::get(
     '/jadwal/prodi/{id}',
@@ -105,8 +147,6 @@ Route::get(
     ]
 );
 
-
-// DATA UNTUK HALAMAN JADWAL
 Route::apiResource(
     'jadwal',
     JadwalController::class
@@ -119,12 +159,10 @@ Route::apiResource(
 |--------------------------------------------------------------------------
 */
 
-
 Route::apiResource(
     'generatejadwal',
     GenerateJadwalController::class
 );
-
 
 Route::post(
     '/generatejadwal/run',
@@ -135,13 +173,19 @@ Route::post(
 );
 
 
-
 /*
 |--------------------------------------------------------------------------
 | EXPORT
 |--------------------------------------------------------------------------
 */
 
+Route::get(
+    '/jadwal/export/prodi/{id}',
+    [
+        JadwalController::class,
+        'exportProdiExcel'
+    ]
+);
 
 Route::get(
     '/jadwal/export/{id}',
@@ -151,7 +195,6 @@ Route::get(
     ]
 );
 
-
 Route::get(
     '/jadwal/pdf/{id}',
     [
@@ -159,3 +202,52 @@ Route::get(
         'exportPdf'
     ]
 );
+
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES
+|--------------------------------------------------------------------------
+|
+| Semua endpoint di bawah ini membutuhkan token Sanctum.
+|
+*/
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/dashboard',
+        [DashboardController::class, 'index']
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | PROFILE
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/profile',
+        [ProfileController::class, 'index']
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | UBAH PASSWORD
+    |--------------------------------------------------------------------------
+    */
+
+    Route::put(
+        '/profile/password',
+        [ProfileController::class, 'updatePassword']
+    );
+
+});

@@ -17,6 +17,11 @@ class Jadwal extends Model
         'jam_selesai'
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELASI GENERATE JADWAL
+    |--------------------------------------------------------------------------
+    */
 
     public function generateJadwal()
     {
@@ -26,6 +31,11 @@ class Jadwal extends Model
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELASI KELAS PERKULIAHAN
+    |--------------------------------------------------------------------------
+    */
 
     public function kelasPerkuliahan()
     {
@@ -35,23 +45,17 @@ class Jadwal extends Model
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELASI RUANGAN
+    |--------------------------------------------------------------------------
+    */
 
     public function ruangan()
     {
         return $this->belongsTo(
             Ruangan::class,
             'ruangan_id'
-        );
-    }
-
-
-    public function dosen()
-    {
-        return $this->belongsToMany(
-            Dosen::class,
-            'jadwal_dosen',
-            'jadwal_id',
-            'dosen_id'
         );
     }
 }

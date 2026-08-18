@@ -6,29 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class KelasPerkuliahan extends Model
 {
-
     protected $table = 'kelas_perkuliahan';
 
-
     protected $fillable = [
-
         'mata_kuliah_id',
         'prodi_id',
         'semester_akademik_id',
         'angkatan',
         'nama_kelas',
         'jumlah_mahasiswa'
-
     ];
-
 
     /*
     |--------------------------------------------------------------------------
     | RELASI DOSEN
     |--------------------------------------------------------------------------
     |
-    | Saat ini belum dipakai oleh input manual.
-    | Akan digunakan nanti saat proses generate jadwal.
+    | Satu kelas perkuliahan dapat memiliki satu atau lebih dosen.
     |
     */
 
@@ -42,12 +36,13 @@ class KelasPerkuliahan extends Model
         );
     }
 
-
-
     /*
     |--------------------------------------------------------------------------
     | RELASI MATA KULIAH
     |--------------------------------------------------------------------------
+    |
+    | Setiap kelas perkuliahan memiliki satu mata kuliah.
+    |
     */
 
     public function mataKuliah()
@@ -58,12 +53,13 @@ class KelasPerkuliahan extends Model
         );
     }
 
-
-
     /*
     |--------------------------------------------------------------------------
     | RELASI PROGRAM STUDI
     |--------------------------------------------------------------------------
+    |
+    | Setiap kelas perkuliahan berada pada satu program studi.
+    |
     */
 
     public function prodi()
@@ -74,6 +70,14 @@ class KelasPerkuliahan extends Model
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELASI JADWAL
+    |--------------------------------------------------------------------------
+    |
+    | Satu kelas perkuliahan dapat memiliki jadwal.
+    |
+    */
 
     public function jadwal()
     {
@@ -83,12 +87,13 @@ class KelasPerkuliahan extends Model
         );
     }
 
-
-
     /*
     |--------------------------------------------------------------------------
     | RELASI SEMESTER AKADEMIK
     |--------------------------------------------------------------------------
+    |
+    | Setiap kelas perkuliahan berada pada satu semester akademik.
+    |
     */
 
     public function semesterAkademik()
@@ -98,5 +103,4 @@ class KelasPerkuliahan extends Model
             'semester_akademik_id'
         );
     }
-
 }

@@ -1,230 +1,644 @@
+/* =========================================================
+   INPUT MANUAL PAGE
+   ========================================================= */
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
 .tabs-container {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
+
 
 .tab-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px; 
-    padding: 10px 0; 
+
+    width: 150px;
+
+    padding: 10px 0;
+
     border: 1px solid #f3a45a;
+
     background: transparent;
+
     border-radius: 10px;
+
     color: #f3a45a;
+
     cursor: pointer;
+
     font-weight: 500;
-    font-size: 14px; 
+
+    font-size: 14px;
+
     transition: all 0.3s ease;
+
+    box-sizing: border-box;
 }
+
 
 .tab-btn.active {
     background: #f3a45a;
     color: white;
 }
 
-/* Dynamic Table Container */
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
 .dynamic-table-wrapper {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    box-sizing: border-box;
+
     border: 1px solid #e2e8f0;
+
     border-radius: 16px;
-    background-color: white;
-    overflow: hidden;
+
+    background-color: #ffffff;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
     margin-bottom: 30px;
 }
 
+
+/* =========================================================
+   HEADER TABEL
+   ========================================================= */
+
 .dynamic-table-header {
+
     display: grid;
-    padding: 16px 20px 8px 20px;
-    gap: 15px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 15px 20px 12px 20px;
+
+    gap: 12px;
+
     color: #334155;
+
     font-weight: 500;
+
     font-size: 14px;
+
+    align-items: center;
+
+    border-bottom: 2px solid #e2e8f0;
+
+    text-align: center;
 }
 
+
+/* =========================================================
+   CELL HEADER
+   ========================================================= */
+
+.dynamic-table-header > div {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BARIS DATA
+   ========================================================= */
 
 .dynamic-table-row {
+
     display: grid;
-    padding: 8px 20px;
-    gap: 15px;
-    align-items: center;
-    border-bottom: 1px solid #f8fafc;
-}
 
-
-.dynamic-table-row:last-child {
-    border-bottom: none;
-}
-
-/* Mode Edit Input */
-.dynamic-input {
     width: 100%;
-    padding: 10px 14px;
-    border: 1px solid #94a3b8;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #1e293b;
-    outline: none;
-    transition: border-color 0.2s;
-    background-color: transparent;
+
+    box-sizing: border-box;
+
+    padding: 13px 20px;
+
+    gap: 12px;
+
+    align-items: center;
+
+    border-bottom: 2px solid #e2e8f0;
 }
+
+
+/* =========================================================
+   CELL DATA
+   ========================================================= */
+
+.dynamic-table-row > div {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   GARIS BARIS TERAKHIR
+   ========================================================= */
+
+.dynamic-table-row:last-of-type {
+
+    border-bottom: none;
+
+}
+
+
+/* =========================================================
+   MODE EDIT INPUT
+   ========================================================= */
+
+.dynamic-input {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 9px 12px;
+
+    border: 1px solid #94a3b8;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    color: #1e293b;
+
+    outline: none;
+
+    transition: border-color 0.2s;
+
+    background-color: transparent;
+
+    text-align: center;
+}
+
 
 .dynamic-input:focus {
+
     border-color: #f3a45a;
+
 }
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
 
 select.dynamic-input {
+
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+
+    background-image: url(
+        "data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"
+    );
+
     background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
+
+    background-position: right 10px center;
+
+    background-size: 15px;
+
     cursor: pointer;
-    padding: 10px 14px;
+
+    padding-right: 32px;
+
+    text-align: center;
 }
+
+
+/* =========================================================
+   MODE VIEW
+   ========================================================= */
 
 .dynamic-text {
-    padding: 10px 0;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 9px 0;
+
     font-size: 14px;
+
     color: #334155;
+
     font-weight: 500;
+
     display: flex;
+
     align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    overflow-wrap: break-word;
 }
 
-/* Action Icons */
+
+/* =========================================================
+   AKSI
+   ========================================================= */
+
 .action-cell {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
-    gap: 8px;
+
+    gap: 6px;
 }
+
 
 .btn-icon-action {
+
     background: transparent;
+
     border: none;
+
     cursor: pointer;
-    padding: 8px;
+
+    padding: 6px;
+
     border-radius: 6px;
+
     transition: background-color 0.2s;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
+    flex-shrink: 0;
 }
 
-.btn-icon-action.edit { color: #f3a45a; }
-.btn-icon-action.edit:hover { background-color: #fef4eb; }
 
-.btn-icon-action.delete { color: #ef4444; }
-.btn-icon-action.delete:hover { background-color: #fef2f2; }
+.btn-icon-action.edit {
+    color: #f3a45a;
+}
 
-.btn-icon-action.save { color: #10b981; }
-.btn-icon-action.save:hover { background-color: #ecfdf5; }
 
-.btn-icon-action.cancel { color: #ef4444; }
-.btn-icon-action.cancel:hover { background-color: #fef2f2; }
+.btn-icon-action.edit:hover {
+    background-color: #fef4eb;
+}
 
-/* Footer Tambah Baris */
+
+.btn-icon-action.delete {
+    color: #ef4444;
+}
+
+
+.btn-icon-action.delete:hover {
+    background-color: #fef2f2;
+}
+
+
+.btn-icon-action.save {
+    color: #10b981;
+}
+
+
+.btn-icon-action.save:hover {
+    background-color: #ecfdf5;
+}
+
+
+.btn-icon-action.cancel {
+    color: #ef4444;
+}
+
+
+.btn-icon-action.cancel:hover {
+    background-color: #fef2f2;
+}
+
+
+/* =========================================================
+   FOOTER TABEL
+   ========================================================= */
+
 .dynamic-table-footer {
-    background-color: #fff6ed; 
-    padding: 16px 20px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background-color: #fff6ed;
+
+    padding: 14px 20px;
+
     display: flex;
+
     justify-content: flex-end;
-    border-top: 1px solid #f1f5f9;
+
+    border-top: 1px solid #e2e8f0;
 }
 
-.generate-modal-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
+
+/* =========================================================
+   KHUSUS TABLE 6 KOLOM
+   ========================================================= */
+
+.dynamic-table-wrapper:has(
+    .dynamic-table-header > div:nth-child(6)
+) {
+
+    overflow-x: auto;
+
 }
 
-.generate-modal{
-    width:420px;
-    background:white;
-    border-radius:16px;
-    padding:28px;
-    text-align:center;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+/* =========================================================
+   MODAL GENERATE
+   ========================================================= */
+
+.generate-modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .45);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
 }
 
-.generate-modal h3{
-    margin-bottom:12px;
-    color:#1e293b;
+
+.generate-modal {
+
+    width: 420px;
+
+    max-width: calc(100% - 40px);
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 28px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .15);
+
+    box-sizing: border-box;
 }
 
-.generate-modal p{
-    color:#64748b;
-    font-size:14px;
-    line-height:22px;
-    margin-bottom:24px;
+
+.generate-modal h3 {
+
+    margin-bottom: 12px;
+
+    color: #1e293b;
 }
 
-.generate-modal-action{
-    display:flex;
-    justify-content:flex-end;
-    gap:12px;
+
+.generate-modal p {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 22px;
+
+    margin-bottom: 24px;
 }
 
-.loading-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(255,255,255,.8);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:10000;
+
+.generate-modal-action {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
 }
 
-.loading-box{
-    width:320px;
-    background:white;
-    border-radius:18px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+/* =========================================================
+   LOADING OVERLAY
+   ========================================================= */
+
+.loading-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(255,255,255,.8);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 10000;
 }
 
-.loading-box h3{
-    margin-top:18px;
-    color:#1e293b;
+
+.loading-box {
+
+    width: 320px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.15);
+
+    box-sizing: border-box;
 }
 
-.loading-box p{
-    margin-top:8px;
-    color:#64748b;
-    font-size:14px;
+
+.loading-box h3 {
+
+    margin-top: 18px;
+
+    color: #1e293b;
 }
 
-.loading-spinner{
-    width:55px;
-    height:55px;
-    margin:auto;
-    border:5px solid #e2e8f0;
-    border-top:5px solid #f3a45a;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
+
+.loading-box p {
+
+    margin-top: 8px;
+
+    color: #64748b;
+
+    font-size: 14px;
 }
 
-@keyframes spin{
-    from{
-        transform:rotate(0deg);
+
+/* =========================================================
+   LOADING SPINNER
+   ========================================================= */
+
+.loading-spinner {
+
+    width: 55px;
+
+    height: 55px;
+
+    margin: auto;
+
+    border: 5px solid #e2e8f0;
+
+    border-top: 5px solid #f3a45a;
+
+    border-radius: 50%;
+
+    animation: spin .8s linear infinite;
+}
+
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
     }
-    to{
-        transform:rotate(360deg);
+
+    to {
+        transform: rotate(360deg);
     }
+
 }
 
-/* ================================
+
+/* =========================================================
    SPINNER BUTTON
-================================ */
+   ========================================================= */
 
-.spin-icon{
-  animation: spin 1s linear infinite;
+.spin-icon {
+
+    animation: spin 1s linear infinite;
+
 }
 
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .dynamic-table-wrapper {
+
+        overflow-x: auto;
+
+    }
+
+    .dynamic-table-header,
+    .dynamic-table-row {
+
+        min-width: 900px;
+
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .tabs-container {
+
+        gap: 8px;
+
+    }
+
+
+    .tab-btn {
+
+        width: 130px;
+
+        font-size: 13px;
+
+    }
+
+
+    .dynamic-table-header,
+    .dynamic-table-row {
+
+        min-width: 850px;
+
+    }
+
+
+    .dynamic-table-wrapper {
+
+        overflow-x: auto;
+
+    }
+
+}

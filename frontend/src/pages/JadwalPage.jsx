@@ -1,220 +1,432 @@
 import React, { useEffect, useState } from 'react';
+
 import DashboardLayout from '../components/DashboardLayout';
 import Table from '../components/Table';
 import Button from '../components/Button';
 import Badge from '../components/Badge';
-import { Eye, DownloadSimple } from '@phosphor-icons/react';
+
+import {
+  Eye
+} from '@phosphor-icons/react';
+
 import axios from 'axios';
+
 import '../styles/Dashboard.css';
+import '../styles/JadwalPage.css';
+
 
 const JadwalPage = ({ onNavigate }) => {
 
   const [dataJadwal, setDataJadwal] = useState([]);
   const [generate, setGenerate] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const [semester, setSemester] = useState("Ganjil 2026/2027");
 
+  /*
+  |--------------------------------------------------------------------------
+  | AMBIL DATA JADWAL
+  |--------------------------------------------------------------------------
+  */
 
   useEffect(() => {
 
-    axios.get(
-      'http://127.0.0.1:8000/api/jadwal'
-    )
-    .then(response => {
+    setLoading(true);
+    setError('');
 
-      console.log(response.data);
+    axios
+      .get('http://127.0.0.1:8000/api/jadwal')
 
-      setGenerate(response.data.generate);
+      .then((response) => {
 
-      setDataJadwal(response.data.data);
+        console.log(
+          'DATA JADWAL:',
+          response.data
+        );
 
-    })
-    .catch(error => {
+        setGenerate(
+          response.data.generate || null
+        );
 
-      console.log(
-        "Gagal mengambil jadwal",
-        error
-      );
+        setDataJadwal(
+          response.data.data || []
+        );
 
-    });
+      })
+
+      .catch((error) => {
+
+        console.error(
+          'Gagal mengambil jadwal:',
+          error
+        );
+
+        setError(
+          'Gagal mengambil data jadwal.'
+        );
+
+      })
+
+      .finally(() => {
+
+        setLoading(false);
+
+      });
 
   }, []);
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | FORMAT TANGGAL
+  |--------------------------------------------------------------------------
+  */
+
+  const formatTanggal = (tanggal) => {
+
+    if (!tanggal) {
+      return '-';
+    }
+
+    const date = new Date(tanggal);
+
+    if (isNaN(date.getTime())) {
+      return tanggal;
+    }
+
+    return date.toLocaleString(
+      'id-ID',
+      {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }
+    );
+
+  };
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | LIHAT JADWAL
+  |--------------------------------------------------------------------------
+  */
+
+  const handleLihatJadwal = (prodiId) => {
+
+    console.log(
+      'Lihat jadwal prodi:',
+      prodiId
+    );
+
+    onNavigate(
+      'detail-jadwal',
+      prodiId
+    );
+
+  };
 
 
   return (
 
     <DashboardLayout
+
       onNavigate={onNavigate}
+
       currentPage="jadwal"
+
       pageTitle="Jadwal Perkuliahan"
+
       pageSubtitle="Semua Program Studi - Jadwal Fix"
+
     >
 
 
-      {/* FILTER SEMESTER */}
-
-      <div style={{
-        marginBottom:"20px"
-      }}>
-
-        <label>
-          Semester :
-        </label>
-
-        <select
-          value={semester}
-          onChange={(e)=>setSemester(e.target.value)}
-        >
-
-          <option>
-            Ganjil 2026/2027
-          </option>
-
-          <option>
-            Genap 2026/2027
-          </option>
-
-        </select>
-
-
-      </div>
-
-
-
-      {/* INFO GENERATE TERAKHIR */}
+      {/* ============================================================
+          GENERATE TERAKHIR
+          ============================================================ */}
 
       {generate && (
 
-        <div style={{
-          marginBottom:"20px"
-        }}>
+        <div className="jadwal-generate-card">
+
+          <div className="jadwal-generate-content">
 
 
-          <h3>
-            Generate Terakhir
-          </h3>
+            {/* ========================================================
+                HEADER
+                ======================================================== */}
+
+            <div className="jadwal-generate-heading">
+
+              <h3>
+                Generate Terakhir
+              </h3>
+
+              <p>
+                Informasi jadwal yang terakhir berhasil di-generate
+              </p>
+
+            </div>
 
 
-          <p>
-            Kode Generate : {generate.kode_generate}
-          </p>
+            {/* ========================================================
+                INFORMASI
+                ======================================================== */}
+
+            <div className="jadwal-generate-details">
 
 
-          <p>
-            Tanggal : {generate.tanggal}
-          </p>
+              {/* ======================================================
+                  KODE
+                  ====================================================== */}
+
+              <div className="jadwal-info-block">
+
+                <span>
+                  Kode Generate
+                </span>
+
+                <strong>
+                  {generate.kode_generate}
+                </strong>
+
+              </div>
 
 
-          <p>
+              {/* ======================================================
+                  TANGGAL
+                  ====================================================== */}
 
-            Status :
+              <div className="jadwal-info-block">
 
-            <Badge
-              type="status"
-              status="berhasil"
-            >
-              {generate.status}
-            </Badge>
+                <span>
+                  Tanggal Generate
+                </span>
 
-          </p>
+                <strong>
+                  {formatTanggal(
+                    generate.tanggal
+                  )}
+                </strong>
 
+                <Badge
+                  type="status"
+                  status={generate.status}
+                >
+                  {generate.status}
+                </Badge>
+
+              </div>
+
+
+            </div>
+
+          </div>
 
         </div>
 
       )}
 
 
+      {/* ============================================================
+          ERROR
+          ============================================================ */}
+
+      {error && (
+
+        <div className="jadwal-error-message">
+
+          {error}
+
+        </div>
+
+      )}
 
 
+      {/* ============================================================
+          DAFTAR JADWAL
+          ============================================================ */}
+
+      <div className="jadwal-list-header">
+
+        <h3>
+          Daftar Jadwal
+        </h3>
+
+        <p>
+          Pilih program studi untuk melihat jadwal perkuliahan.
+        </p>
+
+      </div>
 
 
-      {/* TABLE PRODI */}
+      {/* ============================================================
+          LOADING
+          ============================================================ */}
 
-      <Table
+      {loading && (
 
-        headers={[
-          "No",
-          "Prodi",
-          "Jumlah Jadwal",
-          "Status",
-          "Aksi"
-        ]}
+        <div className="jadwal-loading">
 
-      >
+          <div className="spinner"></div>
 
-        {dataJadwal.map((item, i) => (
+          <p>
+            Memuat jadwal...
+          </p>
 
-          <tr key={item.id}>
+        </div>
 
-
-            <td>
-              {i + 1}
-            </td>
+      )}
 
 
-            <td>
-              {item.prodi}
-            </td>
+      {/* ============================================================
+          DATA KOSONG
+          ============================================================ */}
+
+      {!loading &&
+       !error &&
+       dataJadwal.length === 0 && (
+
+        <div className="jadwal-empty">
+
+          <p>
+            Belum ada data jadwal.
+          </p>
+
+        </div>
+
+      )}
 
 
-            <td>
-              {item.jumlah_jadwal}
-            </td>
+      {/* ============================================================
+          TABLE MENU JADWAL
+          ============================================================ */}
+
+      {!loading &&
+       dataJadwal.length > 0 && (
+
+        <div className="jadwal-menu-table">
+
+          <Table
+
+            headers={[
+              'No',
+              'Prodi',
+              'Jumlah Jadwal',
+              'Status',
+              'Aksi'
+            ]}
+
+          >
+
+            {dataJadwal.map(
+              (item, index) => (
+
+                <tr
+                  key={item.id}
+                >
 
 
-            <td>
+                  {/* ==================================================
+                      NO
+                      ================================================== */}
 
-              <Badge
-                type="status"
-                status="berhasil"
-              >
-                {item.status}
-              </Badge>
+                  <td className="jadwal-menu-no">
 
-            </td>
+                    {index + 1}
 
-
-            <td>
-
-              <div
-                style={{
-                  display:'flex',
-                  justifyContent:'center',
-                  gap:'8px'
-                }}
-              >
-
-                <Button
-                  variant="table-icon eye"
-                  icon={Eye}
-                  title="Lihat Jadwal"
-                  onClick={()=>{
-                    onNavigate(
-                      "detail-jadwal",
-                      item.id
-                    )
-                  }}
-                />
+                  </td>
 
 
-                <Button
-                  variant="table-icon download"
-                  icon={DownloadSimple}
-                  title="Unduh Jadwal"
-                />
+                  {/* ==================================================
+                      PRODI
+                      ================================================== */}
 
-              </div>
+                  <td className="jadwal-menu-prodi">
 
-            </td>
+                    {item.prodi}
 
-
-          </tr>
-
-        ))}
+                  </td>
 
 
-      </Table>
+                  {/* ==================================================
+                      JUMLAH JADWAL
+                      ================================================== */}
+
+                  <td className="jadwal-jumlah-cell">
+
+                    <span className="jadwal-jumlah-value">
+
+                      {item.jumlah_jadwal}
+
+                    </span>
+
+                  </td>
+
+
+                  {/* ==================================================
+                      STATUS
+                      ================================================== */}
+
+                  <td className="jadwal-menu-status">
+
+                    <Badge
+
+                      type="status"
+
+                      status={item.status}
+
+                    >
+
+                      {item.status}
+
+                    </Badge>
+
+                  </td>
+
+
+                  {/* ==================================================
+                      AKSI
+                      ================================================== */}
+
+                  <td className="jadwal-menu-action">
+
+                    <div className="jadwal-action-buttons">
+
+                      <Button
+
+                        variant="table-icon eye"
+
+                        icon={Eye}
+
+                        title="Lihat Jadwal"
+
+                        onClick={() =>
+                          handleLihatJadwal(
+                            item.id
+                          )
+                        }
+
+                      />
+
+                    </div>
+
+                  </td>
+
+
+                </tr>
+
+              )
+            )}
+
+          </Table>
+
+        </div>
+
+      )}
 
 
     </DashboardLayout>

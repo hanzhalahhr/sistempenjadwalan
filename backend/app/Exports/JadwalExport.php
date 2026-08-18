@@ -3,120 +3,215 @@
 namespace App\Exports;
 
 use App\Models\Jadwal;
+
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
 
-class JadwalExport implements 
-    FromCollection, 
+class JadwalExport implements
+    FromCollection,
     WithHeadings,
     WithStyles,
     WithColumnWidths
 {
 
-
     protected $generateId;
+    protected $jadwal;
+    protected $namaProdi;
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | CONSTRUCTOR
+    |--------------------------------------------------------------------------
+    |
+    | Mendukung:
+    |
+    | new JadwalExport($generateId)
+    |
+    | dan:
+    |
+    | new JadwalExport($jadwal, $namaProdi)
+    |
+    */
 
-    public function __construct($generateId)
+    public function __construct($data, $namaProdi = null)
     {
 
-        $this->generateId = $generateId;
+        if ($data instanceof \Illuminate\Support\Collection) {
+
+            $this->jadwal = $data;
+
+            $this->namaProdi = $namaProdi;
+
+            $this->generateId = null;
+
+        } else {
+
+            $this->generateId = $data;
+
+            $this->jadwal = null;
+
+            $this->namaProdi = null;
+
+        }
 
     }
 
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | DATA
+    |--------------------------------------------------------------------------
+    */
 
     public function collection()
     {
 
-        return Jadwal::with([
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA EXPORT BERDASARKAN GENERATE ID
+        |--------------------------------------------------------------------------
+        */
 
-            'kelasPerkuliahan.mataKuliah',
-            'kelasPerkuliahan.prodi',
-            'ruangan',
-            'dosen'
+        if ($this->jadwal === null) {
 
-        ])
-        ->where(
-            'generate_jadwal_id',
-            $this->generateId
-        )
-        ->get()
-        ->map(function($jadwal){
+            $this->jadwal = Jadwal::with([
 
+                'kelasPerkuliahan.mataKuliah',
 
-            return [
+                'kelasPerkuliahan.prodi',
 
-                'Hari' => $jadwal->hari,
+                'kelasPerkuliahan.dosen',
 
+                'ruangan'
 
-                'Jam' => 
-                    $jadwal->jam_mulai .
-                    ' - ' .
-                    $jadwal->jam_selesai,
+            ])
 
+            ->where(
+                'generate_jadwal_id',
+                $this->generateId
+            )
 
-                'Mata Kuliah' =>
-                    $jadwal
-                    ->kelasPerkuliahan
-                    ->mataKuliah
-                    ->nama_mk,
+            ->orderByRaw("
+                FIELD(
+                    hari,
+                    'Senin',
+                    'Selasa',
+                    'Rabu',
+                    'Kamis',
+                    'Jumat',
+                    'Sabtu'
+                )
+            ")
 
+            ->orderBy('jam_mulai')
 
-                'Kelas' =>
-                    $jadwal
-                    ->kelasPerkuliahan
-                    ->nama_kelas,
+            ->get();
 
-
-                'Prodi' =>
-                    $jadwal
-                    ->kelasPerkuliahan
-                    ->prodi
-                    ->nama_prodi,
+        }
 
 
-                'Ruangan' =>
-                    $jadwal
-                    ->ruangan
-                    ->nama_ruangan,
+        /*
+        |--------------------------------------------------------------------------
+        | FORMAT DATA EXCEL
+        |--------------------------------------------------------------------------
+        */
+
+        return $this->jadwal
+            ->values()
+            ->map(
+                function ($jadwal, $index) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | AMBIL DOSEN DARI KELAS PERKULIAHAN
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $dosen = optional(
+                        $jadwal->kelasPerkuliahan
+                    )
+                    ?->dosen
+                    ?->pluck('nama_dosen')
+                    ?->join(', ');
 
 
-                'Dosen' =>
-                    $jadwal
-                    ->dosen
-                    ->pluck('nama_dosen')
-                    ->join(', ')
+                    return [
 
-            ];
+                        'No' =>
+                            $index + 1,
 
 
-        });
+                        'Hari' =>
+                            $jadwal->hari ?? '-',
 
+
+                        'Jam' =>
+                            ($jadwal->jam_mulai ?? '-') .
+                            ' - ' .
+                            ($jadwal->jam_selesai ?? '-'),
+
+
+                        'Mata Kuliah' =>
+                            optional(
+                                optional(
+                                    $jadwal->kelasPerkuliahan
+                                )->mataKuliah
+                            )->nama_mk ?? '-',
+
+
+                        'Kelas' =>
+                            optional(
+                                $jadwal->kelasPerkuliahan
+                            )->nama_kelas ?? '-',
+
+
+                        'Ruangan' =>
+                            optional(
+                                $jadwal->ruangan
+                            )->nama_ruangan ?? '-',
+
+
+                        'Dosen' =>
+                            $dosen ?: '-',
+
+                    ];
+
+                }
+            );
 
     }
 
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | HEADER
+    |--------------------------------------------------------------------------
+    */
 
     public function headings(): array
     {
 
         return [
 
+            'No',
+
             'Hari',
+
             'Jam',
+
             'Mata Kuliah',
+
             'Kelas',
-            'Prodi',
+
             'Ruangan',
+
             'Dosen'
 
         ];
@@ -124,61 +219,71 @@ class JadwalExport implements
     }
 
 
-
-
+    /*
+    |--------------------------------------------------------------------------
+    | STYLE
+    |--------------------------------------------------------------------------
+    */
 
     public function styles(Worksheet $sheet)
     {
 
+        /*
+        |--------------------------------------------------------------------------
+        | BORDER
+        |--------------------------------------------------------------------------
+        */
 
-        // Border semua tabel
-        $sheet->getStyle(
-            'A1:G'.$sheet->getHighestRow()
-        )
-        ->getBorders()
-        ->getAllBorders()
-        ->setBorderStyle(
-            Border::BORDER_THIN
-        );
+        $sheet
+            ->getStyle(
+                'A1:G' . $sheet->getHighestRow()
+            )
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(
+                Border::BORDER_THIN
+            );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | HEADER
+        |--------------------------------------------------------------------------
+        */
 
-        // Style Header
         return [
 
             1 => [
 
-                'font'=>[
+                'font' => [
 
-                    'bold'=>true,
+                    'bold' => true,
 
-                    'color'=>[
+                    'color' => [
 
-                        'rgb'=>'FFFFFF'
-
-                    ]
-
-                ],
-
-
-                'fill'=>[
-
-                    'fillType'=>'solid',
-
-                    'startColor'=>[
-
-                        'rgb'=>'2563EB'
+                        'rgb' => 'FFFFFF'
 
                     ]
 
                 ],
 
+                'fill' => [
 
-                'alignment'=>[
+                    'fillType' => 'solid',
 
-                    'horizontal'=>'center',
+                    'startColor' => [
 
-                    'vertical'=>'center'
+                        'rgb' => '2563EB'
+
+                    ]
+
+                ],
+
+                'alignment' => [
+
+                    'horizontal' => 'center',
+
+                    'vertical' => 'center'
 
                 ]
 
@@ -186,36 +291,36 @@ class JadwalExport implements
 
         ];
 
-
     }
 
 
-
-
+    /*
+    |--------------------------------------------------------------------------
+    | LEBAR KOLOM
+    |--------------------------------------------------------------------------
+    */
 
     public function columnWidths(): array
     {
 
         return [
 
-            'A'=>15, // Hari
+            'A' => 8,
 
-            'B'=>18, // Jam
+            'B' => 15,
 
-            'C'=>35, // Mata Kuliah
+            'C' => 18,
 
-            'D'=>15, // Kelas
+            'D' => 35,
 
-            'E'=>25, // Prodi
+            'E' => 15,
 
-            'F'=>18, // Ruangan
+            'F' => 18,
 
-            'G'=>35, // Dosen
-
+            'G' => 40,
 
         ];
 
     }
-
 
 }

@@ -20,14 +20,14 @@ class MataKuliahController extends Controller
     public function store(Request $request)
     {
         $mataKuliah = MataKuliah::create([
-            'kode_mk'   => $request->kode_mk,
-            'nama_mk'   => $request->nama_mk,
-            'sks'       => $request->sks,
-            'semester'  => $request->semester,
-            'jenis'     => $request->jenis ?? 'Teori'
+            'kode_mk'  => $request->kode_mk,
+            'nama_mk'  => $request->nama_mk,
+            'sks'      => $request->sks,
+            'semester' => $request->semester,
+            'jenis_mk' => $request->jenis_mk ?? 'Teori'
         ]);
 
-        // Buat kelas default (tanpa dosen)
+        // Buat kelas default jika prodi dipilih
         if ($request->prodi_id) {
 
             KelasPerkuliahan::create([
@@ -42,8 +42,9 @@ class MataKuliahController extends Controller
         }
 
         return response()->json([
-            'message' => 'Data berhasil disimpan'
-        ]);
+            'message' => 'Data berhasil disimpan',
+            'data' => $mataKuliah
+        ], 201);
     }
 
     public function show(string $id)
@@ -60,7 +61,7 @@ class MataKuliahController extends Controller
             'nama_mk'  => $request->nama_mk,
             'sks'      => $request->sks,
             'semester' => $request->semester,
-            'jenis'    => $request->jenis ?? $mataKuliah->jenis
+            'jenis_mk' => $request->jenis_mk ?? $mataKuliah->jenis_mk
         ]);
 
         if ($request->prodi_id) {
@@ -85,7 +86,6 @@ class MataKuliahController extends Controller
                 ]);
 
             }
-
         }
 
         return response()->json([

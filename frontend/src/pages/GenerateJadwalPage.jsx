@@ -1,49 +1,317 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect
+} from 'react';
+
 import DashboardLayout from '../components/DashboardLayout';
 import Button from '../components/Button';
 
 import {
-  Plus,
   MicrosoftExcelLogo,
   CalendarCheck
-} from "@phosphor-icons/react";
+} from '@phosphor-icons/react';
 
+import axios from 'axios';
 
 import '../styles/Dashboard.css';
 
 
-
-const GenerateJadwalPage = ({ onNavigate }) => {
-
-  const [inputReady, setInputReady] = useState(false);
-
-  const [configReady, setConfigReady] = useState(false);
+const API =
+  "http://127.0.0.1:8000/api";
 
 
-  useEffect(()=>{
+const GenerateJadwalPage = ({
+  onNavigate
+}) => {
 
-    const inputStatus = localStorage.getItem(
-      "input_ready"
-    );
 
-    const configStatus = localStorage.getItem(
-      "config_ready"
-    );
+  /*
+  |--------------------------------------------------------------------------
+  | STATUS INPUT DATA
+  |--------------------------------------------------------------------------
+  */
 
-    setInputReady(
-      inputStatus === "true"
-    );
+  const [
+    inputReady,
+    setInputReady
+  ] = useState(false);
 
-    setConfigReady(
-      configStatus === "true"
-    );
 
-  },[]);
+  /*
+  |--------------------------------------------------------------------------
+  | STATUS KONFIGURASI SESSION
+  |--------------------------------------------------------------------------
+  |
+  | INI BUKAN DARI DATABASE.
+  |
+  | Status hanya berdasarkan apakah user pada session aplikasi
+  | ini sudah menyimpan konfigurasi.
+  |
+  */
 
-  const allReady = inputReady && configReady;
+  const [
+    configReady,
+    setConfigReady
+  ] = useState(false);
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | LOADING
+  |--------------------------------------------------------------------------
+  */
+
+  const [
+    loadingStatus,
+    setLoadingStatus
+  ] = useState(true);
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | CEK STATUS
+  |--------------------------------------------------------------------------
+  */
+
+  useEffect(() => {
+
+    const cekStatus =
+      async () => {
+
+        try {
+
+          setLoadingStatus(
+            true
+          );
+
+
+          /*
+          |--------------------------------------------------------------------------
+          | 1. CEK INPUT DATA DARI DATABASE
+          |--------------------------------------------------------------------------
+          */
+
+          const [
+            prodiResponse,
+            dosenResponse,
+            mataKuliahResponse,
+            kelasResponse,
+            ruanganResponse
+          ] = await Promise.all([
+
+            axios.get(
+              `${API}/prodi`
+            ),
+
+            axios.get(
+              `${API}/dosen`
+            ),
+
+            axios.get(
+              `${API}/mata-kuliah`
+            ),
+
+            axios.get(
+              `${API}/kelasperkuliahan`
+            ),
+
+            axios.get(
+              `${API}/ruangan`
+            )
+
+          ]);
+
+
+          /*
+          |--------------------------------------------------------------------------
+          | 2. NORMALISASI DATA
+          |--------------------------------------------------------------------------
+          */
+
+          const prodiData =
+            Array.isArray(
+              prodiResponse.data
+            )
+              ? prodiResponse.data
+              : Array.isArray(
+                  prodiResponse.data?.data
+                )
+                ? prodiResponse.data.data
+                : [];
+
+
+          const dosenData =
+            Array.isArray(
+              dosenResponse.data
+            )
+              ? dosenResponse.data
+              : Array.isArray(
+                  dosenResponse.data?.data
+                )
+                ? dosenResponse.data.data
+                : [];
+
+
+          const mataKuliahData =
+            Array.isArray(
+              mataKuliahResponse.data
+            )
+              ? mataKuliahResponse.data
+              : Array.isArray(
+                  mataKuliahResponse.data?.data
+                )
+                ? mataKuliahResponse.data.data
+                : [];
+
+
+          const kelasData =
+            Array.isArray(
+              kelasResponse.data
+            )
+              ? kelasResponse.data
+              : Array.isArray(
+                  kelasResponse.data?.data
+                )
+                ? kelasResponse.data.data
+                : [];
+
+
+          const ruanganData =
+            Array.isArray(
+              ruanganResponse.data
+            )
+              ? ruanganResponse.data
+              : Array.isArray(
+                  ruanganResponse.data?.data
+                )
+                ? ruanganResponse.data.data
+                : [];
+
+
+          /*
+          |--------------------------------------------------------------------------
+          | 3. TENTUKAN INPUT DATA
+          |--------------------------------------------------------------------------
+          */
+
+          const inputSudahSiap =
+
+            prodiData.length > 0 &&
+
+            dosenData.length > 0 &&
+
+            mataKuliahData.length > 0 &&
+
+            kelasData.length > 0 &&
+
+            ruanganData.length > 0;
+
+
+          setInputReady(
+            inputSudahSiap
+          );
+
+
+          /*
+          |--------------------------------------------------------------------------
+          | 4. CEK STATUS KONFIGURASI SESSION
+          |--------------------------------------------------------------------------
+          |
+          | TIDAK ADA REQUEST KONFIGURASI DATABASE.
+          |
+          | Database boleh mempunyai konfigurasi lama.
+          | Tetapi session baru tetap harus konfigurasi lagi.
+          |
+          */
+
+          const sessionConfig =
+            localStorage.getItem(
+              "konfigurasi_jadwal_session"
+            );
+
+
+          const configSudahSiap =
+            sessionConfig === "true";
+
+
+          console.log(
+            "STATUS KONFIGURASI SESSION:",
+            sessionConfig
+          );
+
+
+          console.log(
+            "HASIL CONFIG READY:",
+            configSudahSiap
+          );
+
+
+          setConfigReady(
+            configSudahSiap
+          );
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Gagal mengecek status generate:",
+            error
+          );
+
+
+          console.error(
+            "Response error:",
+            error.response?.data
+          );
+
+
+          setInputReady(
+            false
+          );
+
+
+          setConfigReady(
+            false
+          );
+
+        }
+
+        finally {
+
+          setLoadingStatus(
+            false
+          );
+
+        }
+
+      };
+
+
+    cekStatus();
+
+  }, []);
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | STATUS AKHIR
+  |--------------------------------------------------------------------------
+  */
+
+  const allReady =
+    inputReady &&
+    configReady;
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | RENDER
+  |--------------------------------------------------------------------------
+  */
 
   return (
+
     <DashboardLayout
 
       onNavigate={onNavigate}
@@ -56,79 +324,98 @@ const GenerateJadwalPage = ({ onNavigate }) => {
 
     >
 
-      <div 
-        style={{ 
-          textAlign:'left',
-          paddingLeft:'20px',
-          marginTop:'30px'
+      <div
+        style={{
+          textAlign: 'left',
+          paddingLeft: '20px',
+          marginTop: '30px'
         }}
       >
 
-       <h3
-        style={{
-          color:'#010101',
-          fontSize:'20px',
-          fontWeight:'700',
-          marginBottom:'10px'
-        }}
-      >
-        Langkah 1 - Pilih Sumber Data
-      </h3>
+
+        {/* ==========================================================
+            LANGKAH 1
+        ========================================================== */}
+
+        <h3
+          style={{
+            color: '#010101',
+            fontSize: '20px',
+            fontWeight: '700',
+            marginBottom: '10px'
+          }}
+        >
+
+          Langkah 1 - Pilih Sumber Data
+
+        </h3>
+
 
         <p
           style={{
-            color:'#777',
-            fontSize:'14px',
-            marginBottom:'30px',
-            lineHeight:'22px'
+            color: '#777',
+            fontSize: '14px',
+            marginBottom: '30px',
+            lineHeight: '22px'
           }}
         >
-          Pilih salah satu metode untuk mengisi data yang akan digunakan dalam proses generate jadwal.
+
+          Pilih salah satu metode untuk mengisi data
+          yang akan digunakan dalam proses generate jadwal.
+
         </p>
 
-        <div className="cards-grid">
+
+        <div className="generate-source-cards">
 
 
-          {/* Input Manual */}
+          {/* ======================================================
+              INPUT MANUAL
+          ====================================================== */}
 
           <div
-
             className="data-card"
-
             style={{
-              flexDirection:'column',
-              gap:'20px',
-              cursor:'pointer'
+              flexDirection: 'column',
+              gap: '20px',
+              cursor: 'pointer'
             }}
-
-            onClick={() => onNavigate('input-manual')}
-
+            onClick={() =>
+              onNavigate(
+                'input-manual'
+              )
+            }
           >
 
             <div
               className="icon-wrapper"
               style={{
-                backgroundColor:"#fff4e6",
-                color:"#f39c12",
-                width:"80px",
-                height:"80px"
+                backgroundColor: "#fff4e6",
+                color: "#f39c12",
+                width: "80px",
+                height: "80px"
               }}
             >
 
-              <CalendarCheck 
-                size={36} 
-                weight="fill" 
+              <CalendarCheck
+                size={36}
+                weight="fill"
               />
 
             </div>
 
-            <div style={{textAlign:'center'}}>
+
+            <div
+              style={{
+                textAlign: 'center'
+              }}
+            >
 
               <h3
                 style={{
-                  color:'#010101',
-                  marginBottom:'15px',
-                  fontSize:'16px'
+                  color: '#010101',
+                  marginBottom: '15px',
+                  fontSize: '16px'
                 }}
               >
 
@@ -136,7 +423,10 @@ const GenerateJadwalPage = ({ onNavigate }) => {
 
               </h3>
 
-              <Button variant="primary">
+
+              <Button
+                variant="primary"
+              >
 
                 Input Data Manual
 
@@ -146,60 +436,66 @@ const GenerateJadwalPage = ({ onNavigate }) => {
 
           </div>
 
-          {/* Import Excel */}
 
+          {/* ======================================================
+              IMPORT EXCEL
+          ====================================================== */}
 
           <div
-
             className="data-card"
-
             style={{
-              flexDirection:'column',
-              gap:'20px',
-              cursor:'pointer'
+              flexDirection: 'column',
+              gap: '20px',
+              cursor: 'pointer'
             }}
-
-            onClick={() => onNavigate('import-excel')}
-
+            onClick={() =>
+              onNavigate(
+                'import-excel'
+              )
+            }
           >
 
             <div
-
               className="icon-wrapper"
-
               style={{
-                backgroundColor:'#e6f6ec',
-                color:'#2ecc71',
-                width:'80px',
-                height:'80px'
+                backgroundColor: '#e6f6ec',
+                color: '#2ecc71',
+                width: '80px',
+                height: '80px'
               }}
-
             >
 
-              <MicrosoftExcelLogo size={36} weight="bold"/>
+              <MicrosoftExcelLogo
+                size={36}
+                weight="bold"
+              />
 
             </div>
 
-            <div style={{textAlign:'center'}}>
+
+            <div
+              style={{
+                textAlign: 'center'
+              }}
+            >
 
               <h3
-
                 style={{
-                  color:'#010101',
-                  marginBottom:'15px',
-                  fontSize:'16px'
+                  color: '#010101',
+                  marginBottom: '15px',
+                  fontSize: '16px'
                 }}
-
               >
 
                 Impor dari Excel
 
               </h3>
 
+
               <Button
                 style={{
-                  background:'#2ecc71',
-                  color:'white'
+                  background: '#2ecc71',
+                  color: 'white'
                 }}
               >
 
@@ -212,7 +508,9 @@ const GenerateJadwalPage = ({ onNavigate }) => {
           </div>
 
 
-          {/* Konfigurasi Jadwal */}
+          {/* ======================================================
+              KONFIGURASI JADWAL
+          ====================================================== */}
 
           <div
             className="data-card"
@@ -221,46 +519,60 @@ const GenerateJadwalPage = ({ onNavigate }) => {
               gap: "20px",
               cursor: "pointer"
             }}
-            onClick={() => onNavigate("konfigurasi-jadwal")}
+            onClick={() =>
+              onNavigate(
+                "konfigurasi-jadwal"
+              )
+            }
           >
 
             <div
               className="icon-wrapper"
               style={{
-                backgroundColor:"#e8f0ff",
-                color:"#3498db",
-                width:"80px",
-                height:"80px"
+                backgroundColor: "#e8f0ff",
+                color: "#3498db",
+                width: "80px",
+                height: "80px"
               }}
             >
 
-              <CalendarCheck 
-                size={36} 
+              <CalendarCheck
+                size={36}
                 weight="fill"
               />
 
             </div>
 
-            <div style={{textAlign:"center"}}>
+
+            <div
+              style={{
+                textAlign: "center"
+              }}
+            >
 
               <h3
                 style={{
-                  color:'#010101',
-                  marginBottom:'15px',
-                  fontSize:'16px',
-                  fontWeight:'700'
+                  color: '#010101',
+                  marginBottom: '15px',
+                  fontSize: '16px',
+                  fontWeight: '700'
                 }}
               >
+
                 Konfigurasi Jadwal
+
               </h3>
+
 
               <Button
                 style={{
-                  background:'#3498db',
-                  color:'white'
+                  background: '#3498db',
+                  color: 'white'
                 }}
               >
+
                 Konfigurasi Jadwal
+
               </Button>
 
             </div>
@@ -268,105 +580,253 @@ const GenerateJadwalPage = ({ onNavigate }) => {
           </div>
 
         </div>
-          <h3
-            style={{
-              color:"#010101",
-              fontSize:"20px",
-              fontWeight:"700",
-              marginTop:"50px",
-              marginBottom:"10px"
-            }}
-          >
+
+
+        {/* ==========================================================
+            LANGKAH 2
+        ========================================================== */}
+
+        <h3
+          style={{
+            color: "#010101",
+            fontSize: "20px",
+            fontWeight: "700",
+            marginTop: "50px",
+            marginBottom: "10px"
+          }}
+        >
+
           Langkah 2 - Generate Jadwal
-            </h3>
+
+        </h3>
+
 
         <p
           style={{
-            color:"#777",
-            fontSize:"14px",
-            marginBottom:"25px"
+            color: "#777",
+            fontSize: "14px",
+            marginBottom: "25px"
           }}
         >
-          Pastikan seluruh data dan konfigurasi sudah lengkap sebelum melakukan proses generate.
+
+          Pastikan seluruh data dan konfigurasi sudah lengkap
+          sebelum melakukan proses generate.
+
         </p>
 
-      <div className="config-card">
 
-        <table className="status-table">
+        {/* ==========================================================
+            STATUS CARD
+        ========================================================== */}
 
-          <tbody>
+        <div className="config-card">
 
-            <tr>
-              <td className="status-label">Input Data</td>
-              <td>:</td>
-              <td style={{color: inputReady ? "#22c55e" : "#ef4444", fontWeight:"700"}}>
-                {inputReady ? "Siap" :"Belum Siap"}
-              </td>
-            </tr>
+          <table className="status-table">
 
-            <tr>
-              <td className="status-label">Konfigurasi Jadwal</td>
-              <td>:</td>
-              <td style={{color: configReady ? "#22c55e" : "#ef4444", fontWeight:"700"}}>
-                {configReady ? "Sudah Simpan" :"Belum Disimpan"}
-              </td>
-            </tr>
+            <tbody>
 
-            <tr>
-              <td className="status-label">Status</td>
-              <td>:</td>
-              <td
-                style={{
-                  color: allReady ? "#22c55e" : "#ef4444",
-                  fontWeight:"700"
-                }}
-              >
-                {
-                  allReady 
-                  ? "Siap Generate" 
-                  : "Belum Siap Generate"
-                }
-              </td>
-            </tr>
 
-          </tbody>
+              {/* ====================================================
+                  INPUT DATA
+              ==================================================== */}
 
-        </table>
+              <tr>
 
-      </div>
+                <td className="status-label">
+                  Input Data
+                </td>
+
+                <td>
+                  :
+                </td>
+
+                <td
+                  style={{
+                    color:
+                      loadingStatus
+                        ? "#777"
+                        : inputReady
+                          ? "#22c55e"
+                          : "#ef4444",
+
+                    fontWeight: "700"
+                  }}
+                >
+
+                  {loadingStatus
+
+                    ? "Memeriksa..."
+
+                    : inputReady
+
+                      ? "Siap"
+
+                      : "Belum Siap"
+
+                  }
+
+                </td>
+
+              </tr>
+
+
+              {/* ====================================================
+                  KONFIGURASI
+              ==================================================== */}
+
+              <tr>
+
+                <td className="status-label">
+                  Konfigurasi Jadwal
+                </td>
+
+                <td>
+                  :
+                </td>
+
+                <td
+                  style={{
+                    color:
+                      loadingStatus
+                        ? "#777"
+                        : configReady
+                          ? "#22c55e"
+                          : "#ef4444",
+
+                    fontWeight: "700"
+                  }}
+                >
+
+                  {loadingStatus
+
+                    ? "Memeriksa..."
+
+                    : configReady
+
+                      ? "Sudah Disimpan"
+
+                      : "Belum Disimpan"
+
+                  }
+
+                </td>
+
+              </tr>
+
+
+              {/* ====================================================
+                  STATUS AKHIR
+              ==================================================== */}
+
+              <tr>
+
+                <td className="status-label">
+                  Status
+                </td>
+
+                <td>
+                  :
+                </td>
+
+                <td
+                  style={{
+                    color:
+                      loadingStatus
+                        ? "#777"
+                        : allReady
+                          ? "#22c55e"
+                          : "#ef4444",
+
+                    fontWeight: "700"
+                  }}
+                >
+
+                  {loadingStatus
+
+                    ? "Memeriksa..."
+
+                    : allReady
+
+                      ? "Siap Generate"
+
+                      : "Belum Siap Generate"
+
+                  }
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        {/* ==========================================================
+            BUTTON GENERATE
+        ========================================================== */}
 
         <div
           style={{
-            display:"flex",
-            justifyContent:"flex-end",
-            marginTop:"20px"
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: "20px"
           }}
         >
 
           <Button
-            disabled={!allReady}
-            onClick={()=>{
 
-              if(!allReady){
+            disabled={
+              loadingStatus ||
+              !allReady
+            }
+
+            onClick={() => {
+
+              if (
+                loadingStatus ||
+                !allReady
+              ) {
+
                 return;
+
               }
 
-              onNavigate("proses-generate");
+
+              onNavigate(
+                "proses-generate"
+              );
 
             }}
+
             style={{
-              opacity: allReady ? 1 : 0.5,
-              cursor: allReady ? "pointer" : "not-allowed"
+              opacity:
+                loadingStatus ||
+                !allReady
+                  ? 0.5
+                  : 1,
+
+              cursor:
+                loadingStatus ||
+                !allReady
+                  ? "not-allowed"
+                  : "pointer"
             }}
+
           >
+
             Generate Jadwal
+
           </Button>
 
         </div>
 
       </div>
-                
+
     </DashboardLayout>
+
   );
 
 };

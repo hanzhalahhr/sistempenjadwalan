@@ -19,7 +19,6 @@ import '../styles/Dashboard.css';
 
 const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
-
   const [jadwal, setJadwal] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -29,13 +28,18 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
   const [totalJadwal, setTotalJadwal] = useState(0);
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | AMBIL GENERATE ID
+  |--------------------------------------------------------------------------
+  */
 
   const getGenerateId = () => {
 
-    const id = localStorage.getItem("generate_id");
+    const id = localStorage.getItem('generate_id');
 
     console.log(
-      "GENERATE ID LOCAL STORAGE : ",
+      'GENERATE ID LOCAL STORAGE:',
       id
     );
 
@@ -44,101 +48,167 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
   };
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | EXPORT EXCEL
+  |--------------------------------------------------------------------------
+  */
 
   const handleExportExcel = () => {
 
     const generateId = getGenerateId();
 
+    if (!generateId) {
 
-    if(!generateId){
-
-      alert("Generate ID tidak ditemukan");
+      alert('Generate ID tidak ditemukan');
 
       return;
 
     }
 
-
     window.open(
       `http://127.0.0.1:8000/api/jadwal/export/${generateId}`,
-      "_blank"
+      '_blank'
     );
 
   };
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | EXPORT PDF
+  |--------------------------------------------------------------------------
+  */
 
   const handleExportPdf = () => {
 
     const generateId = getGenerateId();
 
+    if (!generateId) {
 
-    if(!generateId){
+      alert('Generate ID tidak ditemukan');
 
-      alert("Generate ID tidak ditemukan");
+      return;
+
+    }
+
+    window.open(
+      `http://127.0.0.1:8000/api/jadwal/pdf/${generateId}`,
+      '_blank'
+    );
+
+  };
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | AMBIL HASIL GENERATE
+  |--------------------------------------------------------------------------
+  */
+
+  useEffect(() => {
+
+    const generateId =
+      localStorage.getItem('generate_id');
+
+
+    console.log(
+      'AMBIL ID TERBARU:',
+      generateId
+    );
+
+
+    if (!generateId) {
+
+      console.warn(
+        'Generate ID tidak ditemukan di localStorage'
+      );
+
+      setLoading(false);
 
       return;
 
     }
 
 
-    window.open(
-      `http://127.0.0.1:8000/api/jadwal/pdf/${generateId}`,
-      "_blank"
-    );
+    axios
+      .get(
+        `http://127.0.0.1:8000/api/jadwal/hasil/${generateId}`
+      )
 
-  };
-
-
-
-  
-
-  useEffect(() => {
-
-    const generateId = localStorage.getItem("generate_id");
-
-    console.log(
-        "AMBIL ID TERBARU:",
-        generateId
-    );
-
-
-    if(!generateId){
-        setLoading(false);
-        return;
-    }
-
-
-    axios.get(
-       `http://127.0.0.1:8000/api/jadwal/hasil/${generateId}`
-    )
-
-    .then(response=>{
+      .then(response => {
 
         console.log(
-            "HASIL GENERATE:",
-            response.data
+          'HASIL GENERATE:',
+          response.data
         );
 
-        setJadwal(response.data.data);
-        setGenerateInfo(response.data.generate);
-        setTotalJadwal(response.data.data.length);
 
-    })
+        /*
+        |--------------------------------------------------------------------------
+        | DATA JADWAL
+        |--------------------------------------------------------------------------
+        */
 
-    .finally(()=>{
+        const dataJadwal =
+          response.data.data || [];
+
+
+        setJadwal(
+          dataJadwal
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | INFORMASI GENERATE
+        |--------------------------------------------------------------------------
+        */
+
+        setGenerateInfo(
+          response.data.generate || {}
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | TOTAL JADWAL
+        |--------------------------------------------------------------------------
+        */
+
+        setTotalJadwal(
+          dataJadwal.length
+        );
+
+      })
+
+      .catch(error => {
+
+        console.error(
+          'GAGAL MENGAMBIL HASIL GENERATE:',
+          error
+        );
+
+        alert(
+          'Gagal mengambil data hasil generate.'
+        );
+
+      })
+
+      .finally(() => {
+
         setLoading(false);
-    });
+
+      });
+
+  }, []);
 
 
-}, []);
-
-
-
-
-
-
-
+  /*
+  |--------------------------------------------------------------------------
+  | RENDER
+  |--------------------------------------------------------------------------
+  */
 
   return (
 
@@ -154,6 +224,11 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
       <div className="hasil-generate-card">
 
+
+        {/* ================================================================ */}
+        {/* STATUS BERHASIL */}
+        {/* ================================================================ */}
+
         <div className="success-status-container">
 
           <div className="icon-success-wrapper">
@@ -165,11 +240,13 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
           </div>
 
+
           <h2 className="status-title-success">
 
             Jadwal Berhasil Dibuat
 
           </h2>
+
 
           <p className="status-subtitle">
 
@@ -181,10 +258,16 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
 
 
+        {/* ================================================================ */}
+        {/* SUMMARY GENERATE */}
+        {/* ================================================================ */}
+
         <div className="generate-summary">
 
 
+          {/* -------------------------------------------------------------- */}
           {/* GENERATE ID */}
+          {/* -------------------------------------------------------------- */}
 
           <div className="summary-card">
 
@@ -197,21 +280,29 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
             </div>
 
+
             <div className="summary-content generate-code">
 
               <span>
                 Generate ID
               </span>
 
+
               <h3>
-                {generateInfo.kode_generate}
+
+                {generateInfo.kode_generate || '-'}
+
               </h3>
 
             </div>
 
           </div>
 
+
+
+          {/* -------------------------------------------------------------- */}
           {/* TOTAL JADWAL */}
+          {/* -------------------------------------------------------------- */}
 
           <div className="summary-card">
 
@@ -224,13 +315,18 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
             </div>
 
+
             <div className="summary-content">
+
               <span>
                 Total Jadwal
               </span>
 
+
               <h3>
+
                 {totalJadwal}
+
               </h3>
 
             </div>
@@ -239,7 +335,9 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
 
 
-          {/* TANGGAL */}
+          {/* -------------------------------------------------------------- */}
+          {/* TANGGAL GENERATE */}
+          {/* -------------------------------------------------------------- */}
 
           <div className="summary-card">
 
@@ -251,6 +349,7 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
               />
 
             </div>
+
 
             <div className="summary-content">
 
@@ -258,22 +357,23 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
                 Tanggal Generate
               </span>
 
+
               <h3>
 
-              {
-                generateInfo.tanggal_generate &&
-                new Date(
+                {
                   generateInfo.tanggal_generate
-                )
-                .toLocaleDateString(
-                  "id-ID",
-                  {
-                    day:"numeric",
-                    month:"long",
-                    year:"numeric"
-                  }
-                )
-              }
+                    ? new Date(
+                        generateInfo.tanggal_generate
+                      ).toLocaleDateString(
+                        'id-ID',
+                        {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                        }
+                      )
+                    : '-'
+                }
 
               </h3>
 
@@ -282,7 +382,10 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
           </div>
 
 
-          {/* JAM */}
+
+          {/* -------------------------------------------------------------- */}
+          {/* WAKTU GENERATE */}
+          {/* -------------------------------------------------------------- */}
 
           <div className="summary-card">
 
@@ -295,28 +398,31 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
             </div>
 
+
             <div className="summary-content">
 
               <span>
                 Waktu Generate
               </span>
 
-              <h3>
-              {
-                generateInfo.tanggal_generate &&
-                new Date(
-                  generateInfo.tanggal_generate
-                )
-                .toLocaleTimeString(
-                  "id-ID",
-                  {
-                    hour:"2-digit",
-                    minute:"2-digit"
-                  }
-                )
-              }
 
-              {" WIB"}
+              <h3>
+
+                {
+                  generateInfo.tanggal_generate
+                    ? new Date(
+                        generateInfo.tanggal_generate
+                      ).toLocaleTimeString(
+                        'id-ID',
+                        {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        }
+                      )
+                    : '-'
+                }
+
+                {' WIB'}
 
               </h3>
 
@@ -325,7 +431,10 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
           </div>
 
 
+
+          {/* -------------------------------------------------------------- */}
           {/* STATUS */}
+          {/* -------------------------------------------------------------- */}
 
           <div className="summary-card">
 
@@ -338,20 +447,23 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
             </div>
 
+
             <div className="summary-content">
 
               <span>
                 Status
               </span>
 
+
               <div
                 className={
-                  generateInfo.status === "Berhasil"
-                  ? "status-result success"
-                  : "status-result failed"
+                  generateInfo.status === 'Berhasil'
+                    ? 'status-result success'
+                    : 'status-result failed'
                 }
               >
-                {generateInfo.status}
+
+                {generateInfo.status || '-'}
 
               </div>
 
@@ -359,24 +471,34 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
           </div>
 
+
         </div>
 
 
-        {/* EXPORT */}
+
+        {/* ================================================================ */}
+        {/* TOMBOL EXPORT */}
+        {/* ================================================================ */}
 
         <div className="hasil-action-button">
+
 
           <Button
 
             variant="secondary"
 
             onClick={handleExportExcel}
+
           >
-            <FileXls size={20}/>
+
+            <FileXls
+              size={20}
+            />
 
             Excel
 
           </Button>
+
 
 
           <Button
@@ -387,133 +509,278 @@ const HasilGeneratePageBerhasil = ({ onNavigate }) => {
 
           >
 
-            <FilePdf size={20}/>
+            <FilePdf
+              size={20}
+            />
 
             PDF
 
           </Button>
 
+
         </div>
 
 
-        {/* TABLE */}
+
+        {/* ================================================================ */}
+        {/* TABEL JADWAL */}
+        {/* ================================================================ */}
 
         {
 
-        loading ? (
+          loading ? (
 
-          <h3>
-            Mengambil data jadwal...
-          </h3>
+            <div>
 
-        ) : (
+              <h3>
+                Mengambil data jadwal...
+              </h3>
 
-        <table className="table-preview-jadwal">
+            </div>
 
-          <thead>
+          ) : (
 
-            <tr>
+            <div
+              style={{
+                width: '100%',
+                overflowX: 'auto'
+              }}
+            >
 
-              <th>No</th>
-              <th>Hari</th>
-              <th>Jam</th>
-              <th>Mata Kuliah</th>
-              <th>Kelas</th>
-              <th>Prodi</th>
-              <th>Ruangan</th>
-              <th>Dosen</th>
+              <table className="table-preview-jadwal">
 
-            </tr>
+                <thead>
 
-          </thead>
+                  <tr>
 
-          <tbody>
+                    <th>
+                      No
+                    </th>
 
-          {
+                    <th>
+                      Hari
+                    </th>
 
-            jadwal.map((item,index)=>(
+                    <th>
+                      Jam
+                    </th>
 
-              <tr key={item.id}>
+                    <th>
+                      Mata Kuliah
+                    </th>
 
-                <td>
-                  {index+1}
-                </td>
+                    <th>
+                      Kelas
+                    </th>
 
-                <td>
-                  {item.hari}
-                </td>
+                    <th>
+                      Prodi
+                    </th>
 
-                <td>
-                  {item.jam_mulai}
-                  {" - "}
-                  {item.jam_selesai}
-                </td>
+                    <th>
+                      Ruangan
+                    </th>
 
-                <td>
-                  {item.kelas_perkuliahan?.mata_kuliah?.nama_mk}
-                </td>
+                    <th>
+                      Dosen
+                    </th>
 
-                <td>
-                  {item.kelas_perkuliahan?.nama_kelas}
-                </td>
+                  </tr>
 
-                <td>
-                  {item.kelas_perkuliahan?.prodi?.nama_prodi}
-                </td>
+                </thead>
 
-                <td>
-                  {item.ruangan?.nama_ruangan}
-                </td>
 
-                <td>
-                {
-                  item.dosen?.map(
-                    dosen => dosen.nama_dosen
-                  )
-                  .join(", ")
-                }
+                <tbody>
 
-                </td>
+                  {
 
-              </tr>
+                    jadwal.length > 0 ? (
 
-            ))
+                      jadwal.map(
+                        (item, index) => (
 
-          }
+                          <tr
+                            key={item.id}
+                          >
 
-          </tbody>
 
-        </table>
+                            {/* NO */}
 
-        )
+                            <td>
+
+                              {index + 1}
+
+                            </td>
+
+
+
+                            {/* HARI */}
+
+                            <td>
+
+                              {item.hari || '-'}
+
+                            </td>
+
+
+
+                            {/* JAM */}
+
+                            <td>
+
+                              {item.jam_mulai || '-'}
+                              {' - '}
+                              {item.jam_selesai || '-'}
+
+                            </td>
+
+
+
+                            {/* MATA KULIAH */}
+
+                            <td>
+
+                              {item.mata_kuliah || '-'}
+
+                            </td>
+
+
+
+                            {/* KELAS */}
+
+                            <td>
+
+                              {item.kelas || '-'}
+
+                            </td>
+
+
+
+                            {/* PRODI */}
+
+                            <td>
+
+                              {item.prodi || '-'}
+
+                              {
+                                item.jenjang
+                                  ? ` ${item.jenjang}`
+                                  : ''
+                              }
+
+                            </td>
+
+
+
+                            {/* RUANGAN */}
+
+                            <td>
+
+                              {item.ruangan || '-'}
+
+                            </td>
+
+
+
+                            {/* DOSEN */}
+
+                            <td>
+
+                              {
+
+                                item.dosen &&
+                                item.dosen.length > 0
+
+                                  ? item.dosen.join(', ')
+
+                                  : '-'
+
+                              }
+
+                            </td>
+
+
+                          </tr>
+
+                        )
+                      )
+
+                    ) : (
+
+                      <tr>
+
+                        <td
+                          colSpan="8"
+                          style={{
+                            textAlign: 'center'
+                          }}
+                        >
+
+                          Tidak ada data jadwal.
+
+                        </td>
+
+                      </tr>
+
+                    )
+
+                  }
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          )
 
         }
+
 
       </div>
 
 
+
+      {/* ================================================================ */}
+      {/* FOOTER BUTTON */}
+      {/* ================================================================ */}
+
       <div className="footer-action-area">
+
 
         <Button
 
           variant="secondary"
 
-          onClick={() => onNavigate("riwayat-generate")}
+          onClick={() =>
+            onNavigate('riwayat-generate')
+          }
+
         >
+
           Kembali
 
         </Button>
 
 
+
         <Button
+
           variant="primary"
-          onClick={() => onNavigate("dashboard")}
+
+          onClick={() =>
+            onNavigate('dashboard')
+          }
+
         >
+
           Selesai
 
         </Button>
 
+
       </div>
+
 
     </DashboardLayout>
 

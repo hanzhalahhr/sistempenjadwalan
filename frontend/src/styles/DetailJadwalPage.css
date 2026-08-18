@@ -1,0 +1,436 @@
+/* =========================================================
+   DETAIL JADWAL PAGE
+   ========================================================= */
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.detail-jadwal-card {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    padding: 28px 35px;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.detail-jadwal-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #f1f5f9;
+
+}
+
+
+.detail-jadwal-heading h2 {
+
+    margin: 0 0 5px;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+}
+
+
+.detail-jadwal-heading p {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    color: #6b7280;
+
+}
+
+
+/* =========================================================
+   INFORMASI GENERATE
+   ========================================================= */
+
+.detail-generate-info {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-top: 20px;
+
+}
+
+
+.detail-generate-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 55px;
+
+}
+
+
+.detail-generate-item + .detail-generate-item {
+
+    border-left: 1px solid #e5e7eb;
+
+}
+
+
+.detail-generate-item span {
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    color: #6b7280;
+
+}
+
+
+.detail-generate-item strong {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.detail-jadwal-error {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 15px 20px;
+
+    margin-bottom: 20px;
+
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 10px;
+
+    color: #dc2626;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.detail-jadwal-loading {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+
+}
+
+
+.detail-jadwal-loading p {
+
+    margin: 15px 0 0;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.detail-jadwal-empty {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 15px;
+
+    color: #6b7280;
+
+}
+
+
+.detail-jadwal-empty p {
+
+    margin: 0;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.detail-jadwal-table-card {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    padding: 25px 30px;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.detail-table-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.detail-table-header h3 {
+
+    margin: 0 0 4px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+}
+
+
+.detail-table-header p {
+
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #6b7280;
+
+}
+
+
+/* =========================================================
+   BUTTON KEMBALI
+   ========================================================= */
+
+.detail-back-button {
+
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    padding: 9px 18px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+}
+
+
+.detail-back-button:hover {
+
+    background: #f9fafb;
+
+    border-color: #9ca3af;
+
+}
+
+
+/* =========================================================
+   JAM
+   ========================================================= */
+
+.jadwal-time {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    white-space: nowrap;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   MATA KULIAH
+   ========================================================= */
+
+.jadwal-mata-kuliah {
+
+    font-weight: 600;
+
+    color: #111827;
+
+}
+
+
+/* =========================================================
+   DOSEN
+   ========================================================= */
+
+.jadwal-dosen {
+
+    line-height: 20px;
+
+    white-space: normal;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .detail-generate-info {
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+
+    }
+
+
+    .detail-generate-item + .detail-generate-item {
+
+        border-left: none;
+
+        border-top: 1px solid #e5e7eb;
+
+        padding-top: 15px;
+
+    }
+
+
+    .detail-jadwal-table-card {
+
+        padding: 20px;
+
+        overflow-x: auto;
+
+    }
+
+
+    .detail-table-header {
+
+        min-width: 700px;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .detail-jadwal-card {
+
+        padding: 22px 20px;
+
+    }
+
+
+    .detail-jadwal-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}

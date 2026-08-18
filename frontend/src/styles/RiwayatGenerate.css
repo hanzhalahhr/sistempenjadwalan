@@ -1,10 +1,15 @@
+/* =========================================================
+   AKSI TABLE
+========================================================= */
+
 .aksi-container {
     display: flex;
-    flex-direction: row;     
-    align-items: center;     
-    flex-wrap: nowrap;       
-    gap: 8px;                
-    white-space: nowrap;     
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    white-space: nowrap;
 }
 
 .action-cell {
@@ -13,30 +18,9 @@
 }
 
 
-.delete-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 34px;
-    height: 34px;
-
-    border: none;
-    border-radius: 8px;
-
-    cursor: pointer;
-
-    background: #fee2e2;
-    color: #dc2626;
-
-    transition: 0.2s ease;
-}
-
-
-.delete-button:hover {
-    background: #fecaca;
-    transform: scale(1.05);
-}
+/* =========================================================
+   BUTTON
+========================================================= */
 
 .view-button,
 .excel-button,
@@ -57,6 +41,9 @@
     transition: all 0.2s ease;
 }
 
+
+/* LIHAT */
+
 .view-button {
     background: #dbeafe;
     color: #2563eb;
@@ -66,6 +53,9 @@
     background: #bfdbfe;
     transform: scale(1.05);
 }
+
+
+/* EXCEL */
 
 .excel-button {
     background: #dcfce7;
@@ -77,6 +67,9 @@
     transform: scale(1.05);
 }
 
+
+/* PDF */
+
 .pdf-button {
     background: #ffedd5;
     color: #ea580c;
@@ -87,13 +80,28 @@
     transform: scale(1.05);
 }
 
-/* Meratakan isi tabel secara vertikal */
+
+/* DELETE */
+
+.delete-button {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.delete-button:hover {
+    background: #fecaca;
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
 td {
     vertical-align: middle;
 }
 
-
-/* Kolom status */
 .status-cell {
     vertical-align: middle;
 }
@@ -102,4 +110,141 @@ td {
     font-size: 14px;
     color: #535c68;
     margin-top: 3px;
-}   
+}
+
+
+/* =========================================================
+   MODAL DELETE
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 9999;
+}
+
+
+/* =========================================================
+   MODAL BOX
+========================================================= */
+
+.delete-modal {
+    width: 420px;
+    max-width: calc(100% - 40px);
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+
+.delete-modal h2 {
+    margin: 0 0 15px;
+
+    font-size: 22px;
+
+    color: #1f2937;
+}
+
+
+.delete-modal p {
+    margin: 0 0 12px;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    color: #4b5563;
+}
+
+
+.warning-text {
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background: #fef2f2;
+
+    color: #dc2626 !important;
+
+    font-size: 14px !important;
+}
+
+
+/* =========================================================
+   MODAL BUTTON
+========================================================= */
+
+.modal-button {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+
+.btn-cancel,
+.btn-delete {
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 10px 20px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.btn-cancel {
+    background: #e5e7eb;
+
+    color: #374151;
+}
+
+.btn-cancel:hover {
+    background: #d1d5db;
+}
+
+
+.btn-delete {
+    background: #dc2626;
+
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background: #b91c1c;
+}

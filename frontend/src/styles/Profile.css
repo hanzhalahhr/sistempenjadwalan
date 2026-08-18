@@ -1,70 +1,851 @@
-.profile-header { 
-    margin-bottom: 24px; 
-}
+/* ==========================================================================
+   PROFILE PAGE
+   ========================================================================== */
 
-.profile-title { 
-    font-size: 1.5rem; 
-    font-weight: 700; 
-    color: #000; 
-    text-align: left;
-}
-
-.profile-subtitle { 
-    color: #64748b; 
-    margin-top: 4px; 
-    text-align: left;
-}
-
-.password-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 32px;
+.profile-page {
     width: 100%;
-    max-width: 500px;
+    max-width: 950px;
+    margin: 0 auto;
+    padding-bottom: 30px;
 }
 
-.lock-icon { 
-    font-size: 2rem; 
-    margin-bottom: 16px; 
-    text-align: center; 
+
+/* ==========================================================================
+   PROFILE HERO
+   ========================================================================== */
+
+.profile-hero {
+    position: relative;
+
     display: flex;
-    justify-content: center;
-}
+    align-items: center;
 
-.password-card h3 { 
-    margin-bottom: 8px; 
-    color: #1e293b; 
-    text-align: center; 
-}
-
-.password-card p { 
-    color: #64748b; 
-    font-size: 0.85rem; 
-    margin-bottom: 24px; 
-    text-align: center; 
-}
-
-.profile-input-wrapper {
-    margin-bottom: 16px;
-}
-
-.profile-input-wrapper .profile-eye-icon { 
-    position: absolute; 
-    right: 12px; 
-    bottom: 12px;
-    color: #94a3b8; 
-    cursor: pointer; 
-    z-index: 5;
-}
-
-.action-buttons { 
-    display: flex; 
-    gap: 12px; 
-    margin-top: 30px;
     width: 100%;
+
+    min-height: 115px;
+
+    padding: 22px 28px;
+
+    margin-top: 50px;
+
+    margin-bottom: 30px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e0f2fe 0%,
+            #dbeafe 55%,
+            #eff6ff 100%
+        );
+
+    border: 1px solid #bfdbfe;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
-.action-buttons > button {
+
+/* Garis accent seperti sidebar */
+
+.profile-hero::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 5px;
+
+    background: #f3a45a;
+}
+
+
+/* ==========================================================================
+   LOGO
+   ========================================================================== */
+
+.profile-logo {
+    position: relative;
+    z-index: 2;
+
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    margin-right: 22px;
+
+    border-radius: 18px;
+
+    background: #2563eb;
+
+    color: white;
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.22);
+}
+
+
+/* ==========================================================================
+   HERO CONTENT
+   ========================================================================== */
+
+.profile-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.profile-hero-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    color: #2563eb;
+}
+
+
+.profile-hero-content h2 {
+    margin: 0;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #172033;
+}
+
+
+.profile-hero-content p {
+    margin: 5px 0 0;
+
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+
+/* ==========================================================================
+   HERO DECORATION
+   ========================================================================== */
+
+.profile-hero-decoration {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.decoration-one {
+    width: 180px;
+    height: 180px;
+
+    right: 60px;
+    top: -90px;
+
+    background: rgba(147, 197, 253, 0.25);
+}
+
+
+.decoration-two {
+    width: 120px;
+    height: 120px;
+
+    right: -25px;
+    bottom: -55px;
+
+    background: rgba(191, 219, 254, 0.45);
+}
+
+
+/* ==========================================================================
+   GENERAL CARD
+   ========================================================================== */
+
+.profile-card {
+    position: relative;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+    margin-bottom: 30px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.035);
+}
+
+
+/* Accent kiri */
+
+.card-accent {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: #f3a45a;
+}
+
+
+/* ==========================================================================
+   CARD HEADING
+   ========================================================================== */
+
+.card-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 23px 26px 18px;
+}
+
+
+.section-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    flex-shrink: 0;
+}
+
+
+.account-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+
+.security-icon {
+    background: #fff1df;
+    color: #ea8b2d;
+}
+
+
+.card-heading h3 {
+    margin: 0;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    color: #1e293b;
+}
+
+
+.card-heading p {
+    margin: 4px 0 0;
+
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+/* ==========================================================================
+   ACCOUNT
+   ========================================================================== */
+
+.account-main {
+    display: flex;
+    align-items: center;
+
+    padding: 5px 26px 20px;
+
+    gap: 16px;
+}
+
+
+.avatar {
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #bfdbfe;
+}
+
+
+.account-name {
     flex: 1;
+}
+
+
+.account-name h2 {
+    margin: 0;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    color: #1e293b;
+}
+
+
+.account-name p {
+    margin: 4px 0 0;
+
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+.account-status {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    background: #ecfdf5;
+
+    border: 1px solid #bbf7d0;
+
+    color: #15803d;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+}
+
+
+/* ==========================================================================
+   ACCOUNT DIVIDER
+   ========================================================================== */
+
+.account-divider {
+    height: 1px;
+
+    margin: 0 26px;
+
+    background: #e2e8f0;
+}
+
+
+/* ==========================================================================
+   ACCOUNT DETAILS
+   ========================================================================== */
+
+.account-details {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    padding: 19px 26px 23px;
+}
+
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.detail-item span {
+    font-size: 12px;
+
+    color: #94a3b8;
+}
+
+
+.detail-item strong {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #334155;
+}
+
+
+/* ==========================================================================
+   KEAMANAN AKUN
+   ========================================================================== */
+
+.security-card {
+    padding-bottom: 0;
+}
+
+
+.security-content {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 5px 26px 24px;
+}
+
+
+.security-description {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    flex: 1;
+}
+
+
+.security-lock {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #fff7ed;
+
+    color: #ea8b2d;
+}
+
+
+.security-description strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #334155;
+}
+
+
+.security-description p {
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #64748b;
+}
+
+
+/* ==========================================================================
+   MODAL OVERLAY
+   ========================================================================== */
+
+.password-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.48);
+
+    backdrop-filter: blur(3px);
+}
+
+
+/* ==========================================================================
+   MODAL
+   ========================================================================== */
+
+.password-modal {
+    width: 100%;
+
+    max-width: 500px;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.20);
+
+    animation: passwordModalShow 0.18s ease-out;
+}
+
+
+@keyframes passwordModalShow {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* ==========================================================================
+   MODAL HEADER
+   ========================================================================== */
+
+.password-modal-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    background: #f8fafc;
+}
+
+
+.password-modal-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.modal-lock-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #fff1df;
+
+    color: #ea8b2d;
+}
+
+
+.password-modal-title h3 {
+    margin: 0;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #1e293b;
+}
+
+
+.password-modal-title p {
+    margin: 3px 0 0;
+
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+/* ==========================================================================
+   CLOSE BUTTON
+   ========================================================================== */
+
+.modal-close-button {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.modal-close-button:hover {
+    background: #e2e8f0;
+
+    color: #334155;
+}
+
+
+/* ==========================================================================
+   MODAL BODY
+   ========================================================================== */
+
+.password-modal-body {
+    padding: 22px 24px 8px;
+}
+
+
+.password-modal-body .profile-input-wrapper {
+    margin-bottom: 17px;
+}
+
+
+/* ==========================================================================
+   MODAL FOOTER
+   ========================================================================== */
+
+.password-modal-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 16px 24px;
+
+    background: #f8fafc;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+        padding: 0 5px 25px;
+    }
+
+
+    .profile-hero {
+        padding: 24px;
+
+        min-height: 125px;
+    }
+
+
+    .profile-logo {
+        width: 62px;
+        height: 62px;
+
+        margin-right: 16px;
+    }
+
+
+    .profile-hero-content h2 {
+        font-size: 21px;
+    }
+
+
+    .account-main {
+        flex-wrap: wrap;
+    }
+
+
+    .account-status {
+        margin-left: 84px;
+
+        margin-top: -8px;
+    }
+
+
+    .account-details {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+
+    .security-content {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding-bottom: 24px;
+    }
+
+
+    .security-content > button {
+        width: 100%;
+    }
+
+
+    .password-modal {
+        max-width: 100%;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .profile-hero {
+        padding: 20px;
+    }
+
+
+    .profile-logo {
+        width: 52px;
+        height: 52px;
+    }
+
+
+    .profile-logo svg {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    .profile-hero-label {
+        font-size: 9px;
+    }
+
+
+    .profile-hero-content h2 {
+        font-size: 18px;
+    }
+
+
+    .profile-hero-content p {
+        font-size: 12px;
+    }
+
+
+    .card-heading {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .account-main {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .account-details {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .account-divider {
+        margin-left: 20px;
+
+        margin-right: 20px;
+    }
+
+
+    .security-content {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .password-modal-header {
+        padding: 18px;
+    }
+
+
+    .password-modal-body {
+        padding: 20px 18px 6px;
+    }
+
+
+    .password-modal-footer {
+        padding: 15px 18px;
+    }
+
+
+    .password-modal-footer button {
+        flex: 1;
+    }
+
 }
