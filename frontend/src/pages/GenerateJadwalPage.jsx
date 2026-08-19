@@ -7,7 +7,6 @@ import DashboardLayout from '../components/DashboardLayout';
 import Button from '../components/Button';
 
 import {
-  MicrosoftExcelLogo,
   CalendarCheck
 } from '@phosphor-icons/react';
 
@@ -438,77 +437,6 @@ const GenerateJadwalPage = ({
 
 
           {/* ======================================================
-              IMPORT EXCEL
-          ====================================================== */}
-
-          <div
-            className="data-card"
-            style={{
-              flexDirection: 'column',
-              gap: '20px',
-              cursor: 'pointer'
-            }}
-            onClick={() =>
-              onNavigate(
-                'import-excel'
-              )
-            }
-          >
-
-            <div
-              className="icon-wrapper"
-              style={{
-                backgroundColor: '#e6f6ec',
-                color: '#2ecc71',
-                width: '80px',
-                height: '80px'
-              }}
-            >
-
-              <MicrosoftExcelLogo
-                size={36}
-                weight="bold"
-              />
-
-            </div>
-
-
-            <div
-              style={{
-                textAlign: 'center'
-              }}
-            >
-
-              <h3
-                style={{
-                  color: '#010101',
-                  marginBottom: '15px',
-                  fontSize: '16px'
-                }}
-              >
-
-                Impor dari Excel
-
-              </h3>
-
-
-              <Button
-                style={{
-                  background: '#2ecc71',
-                  color: 'white'
-                }}
-              >
-
-                Impor Excel
-
-              </Button>
-
-            </div>
-
-          </div>
-
-
-          {/* ======================================================
               KONFIGURASI JADWAL
           ====================================================== */}
 
@@ -578,6 +506,7 @@ const GenerateJadwalPage = ({
             </div>
 
           </div>
+
 
         </div>
 
